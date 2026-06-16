@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f3ed">
+<title>Paisa — Learn. Save. Grow.</title>
+<meta name="description" content="Paisa — the free, no-login financial learning companion for families of the MuSo Financial Literacy Programme. Schemes, learning, budgeting and quizzes in English and Hindi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f8f3ed; --paper:#fffdf8; --ink:#2c2218; --ink-soft:#6f6354; --ink-faint:#a3978a;
+  --green:#1d9e75; --green-soft:#e2f2ea; --yellow:#f6b93b; --yellow-soft:#fdeecd;
+  --coral:#e85d4a; --coral-soft:#fbe3de; --blue:#3b6fb6; --blue-soft:#e2ebf7;
+  --line:#e7ddd0; --shadow:4px 4px 0 rgba(44,34,24,0.1);
+  --head:'Baloo 2',cursive; --body:'Mukta',sans-serif;
+  --r:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;min-height:100vh;overflow-x:hidden;padding-bottom:84px}
+h1,h2,h3,h4,.head{font-family:var(--head);line-height:1.2}
+button{font-family:inherit;color:inherit;cursor:pointer;background:none;border:none}
+input{font-family:inherit}
+a{color:inherit}
+/* baseline: inline doodles scale to surrounding text; context rules below (.sec-h svg, .sch-ic svg, etc.) override via higher specificity */
+svg{width:1.15em;height:1.15em;vertical-align:-0.2em;flex-shrink:0}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:6px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+@media(min-width:900px){body{padding-bottom:20px}.wrap{max-width:980px}}
+
+/* HEADER */
+.top{position:sticky;top:0;z-index:60;background:rgba(248,243,237,0.94);backdrop-filter:blur(8px);border-bottom:2px solid var(--line)}
+.top-in{max-width:980px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:800;font-size:1.5rem;letter-spacing:-0.01em}
+.logo svg{width:30px;height:30px}
+.logo .tm{font-size:0.62rem;font-weight:700;color:var(--green);align-self:flex-start;margin-top:4px}
+.top-sp{flex:1}
+.lang-tg{display:flex;border:2px solid var(--ink);border-radius:100px;overflow:hidden;background:var(--paper)}
+.lang-tg button{padding:5px 12px;font-weight:700;font-size:0.8rem;font-family:var(--head)}
+.lang-tg button.on{background:var(--ink);color:var(--cream)}
+.user-chip{display:flex;align-items:center;gap:7px;border:2px solid var(--ink);background:var(--paper);border-radius:100px;padding:3px 12px 3px 4px;font-weight:700;font-family:var(--head);font-size:0.85rem;box-shadow:var(--shadow);transition:transform .15s}
+.user-chip:active{transform:translate(2px,2px);box-shadow:none}
+.user-chip svg{width:30px;height:30px}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:70;background:var(--paper);border-top:2px solid var(--ink);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.bnav button{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:0.62rem;font-weight:700;color:var(--ink-faint);padding:4px 10px;border-radius:12px;font-family:var(--head);min-width:56px}
+.bnav button svg{width:24px;height:24px}
+.bnav button.on{color:var(--ink);background:var(--yellow-soft)}
+@media(min-width:900px){.bnav{position:static;border:none;background:none;justify-content:center;gap:8px;padding:14px 0 0}.bnav button{flex-direction:row;gap:8px;font-size:0.85rem;border:2px solid transparent;padding:8px 18px;border-radius:100px}.bnav button.on{border-color:var(--ink);box-shadow:var(--shadow)}}
+
+/* PAGES */
+.page{display:none;padding:18px 0 40px;animation:pop .35s cubic-bezier(0.16,1,0.3,1)}
+.page.on{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page-title{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.page-title svg{width:34px;height:34px;flex-shrink:0}
+.page-sub{color:var(--ink-soft);margin-bottom:20px;max-width:560px}
+
+/* CARDS */
+.card{background:var(--paper);border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);padding:18px;position:relative}
+.card.flat{box-shadow:none;border-color:var(--line)}
+.tap{transition:transform .15s,box-shadow .15s;text-align:left;width:100%}
+.tap:active{transform:translate(2px,2px);box-shadow:none}
+.badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--head);font-weight:700;font-size:0.68rem;padding:3px 10px;border-radius:100px;border:2px solid var(--ink);text-transform:uppercase;letter-spacing:0.04em}
+.badge.new{background:var(--coral);color:#fff;animation:wiggle 2.4s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.badge.green{background:var(--green);color:#fff}.badge.yellow{background:var(--yellow)}.badge.blue{background:var(--blue);color:#fff}.badge.soft{background:var(--cream)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--head);font-weight:700;font-size:0.95rem;padding:12px 24px;border-radius:100px;border:2px solid var(--ink);box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;min-height:48px}
+.btn:active{transform:translate(2px,2px);box-shadow:none}
+.btn.g{background:var(--green);color:#fff}.btn.y{background:var(--yellow)}.btn.c{background:var(--coral);color:#fff}.btn.b{background:var(--blue);color:#fff}.btn.w{background:var(--paper)}
+.btn.sm{padding:8px 16px;font-size:0.82rem;min-height:40px}
+.btn:disabled{opacity:0.4;box-shadow:var(--shadow);transform:none;cursor:not-allowed}
+.grid{display:grid;gap:14px}
+@media(min-width:680px){.grid.g2{grid-template-columns:1fr 1fr}}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.fchip{font-family:var(--head);font-weight:700;font-size:0.8rem;border:2px solid var(--ink);background:var(--paper);border-radius:100px;padding:7px 16px;min-height:40px}
+.fchip.on{background:var(--ink);color:var(--cream)}
+
+/* HOME */
+.hello{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.hello svg{width:52px;height:52px}
+.hello h1{font-size:clamp(1.5rem,5.5vw,2rem);font-weight:800}
+.hello p{color:var(--ink-soft);font-size:0.9rem;margin-top:-4px}
+.streak-dots{display:flex;gap:8px;margin:10px 0 6px}
+.sdot{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-size:0.62rem;font-weight:700;font-family:var(--head);background:var(--paper);color:var(--ink-faint)}
+.sdot.hit{background:var(--yellow);color:var(--ink)}
+.sdot.today{box-shadow:0 0 0 3px var(--yellow-soft)}
+.feature-card{border-radius:var(--r);border:2px solid var(--ink);box-shadow:var(--shadow);padding:18px;position:relative;overflow:hidden}
+.feature-card .doodle-bg{position:absolute;right:-14px;bottom:-18px;width:110px;height:110px;opacity:0.16;transform:rotate(-8deg);pointer-events:none}
+.feature-card .doodle-bg svg{width:100%;height:100%}
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 6px;border-bottom:2px dashed var(--line)}
+.lb-row:last-child{border-bottom:none}
+.lb-row .rank{font-family:var(--head);font-weight:800;width:28px;text-align:center;color:var(--ink-soft)}
+.lb-row svg{width:32px;height:32px}
+.lb-row .nm{font-weight:700;flex:1}
+.lb-row .pts{font-family:var(--head);font-weight:800;color:var(--green)}
+.lb-row.me{background:var(--green-soft);border-radius:12px;border:2px solid var(--green)}
+.feed-item{display:flex;align-items:center;gap:12px;padding:12px 6px;border-bottom:2px dashed var(--line)}
+.feed-item:last-child{border-bottom:none}
+.feed-item svg{width:34px;height:34px;flex-shrink:0}
+.feed-item .ft{font-weight:700;line-height:1.35}
+.feed-item .fs{font-size:0.78rem;color:var(--ink-soft)}
+.sec-h{display:flex;align-items:center;gap:8px;font-family:var(--head);font-weight:800;font-size:1.15rem;margin:26px 0 12px}
+.sec-h svg{width:24px;height:24px}
+
+/* SCHEME / ARTICLE CARDS */
+.sch-card{display:flex;gap:14px;align-items:flex-start}
+.sch-ic{width:54px;height:54px;border-radius:14px;border:2px solid var(--ink);display:grid;place-items:center;flex-shrink:0}
+.sch-ic svg{width:32px;height:32px}
+.sch-t{font-family:var(--head);font-weight:800;font-size:1.05rem;line-height:1.25;margin-bottom:2px}
+.sch-d{font-size:0.85rem;color:var(--ink-soft);line-height:1.5}
+.sch-meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+
+/* OVERLAY (detail reader + quiz) */
+.ovl{position:fixed;inset:0;z-index:90;background:var(--cream);display:none;flex-direction:column;overflow-y:auto;overscroll-behavior:contain}
+.ovl.on{display:flex;animation:up .3s cubic-bezier(0.16,1,0.3,1)}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.ovl-head{position:sticky;top:0;background:rgba(248,243,237,0.95);backdrop-filter:blur(8px);border-bottom:2px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:12px;z-index:5}
+.ovl-head .ot{font-family:var(--head);font-weight:800;font-size:1rem;flex:1;line-height:1.25}
+.ovl-body{max-width:680px;margin:0 auto;width:100%;padding:22px 16px 60px}
+.ovl-body h2{font-size:1.5rem;font-weight:800;margin-bottom:6px}
+.ovl-body h3{font-size:1.05rem;font-weight:800;margin:22px 0 8px;display:flex;align-items:center;gap:8px}
+.ovl-body p{margin-bottom:12px;color:#3d3328}
+.ovl-body ul,.ovl-body ol{margin:0 0 14px 22px;display:flex;flex-direction:column;gap:8px;color:#3d3328}
+.fact-box{background:var(--yellow-soft);border:2px solid var(--yellow);border-radius:14px;padding:14px 16px;margin:18px 0;font-size:0.92rem}
+.fact-box b{font-family:var(--head)}
+.step-list{counter-reset:st;list-style:none;margin-left:0!important}
+.step-list li{position:relative;padding-left:42px;counter-increment:st}
+.step-list li::before{content:counter(st);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);background:var(--yellow);font-family:var(--head);font-weight:800;display:grid;place-items:center;font-size:0.85rem}
+.doc-pills{display:flex;gap:8px;flex-wrap:wrap}
+.doc-pills span{border:2px solid var(--line);background:var(--paper);border-radius:100px;padding:6px 14px;font-size:0.82rem;font-weight:600}
+
+/* BUDGET */
+.calc-in{display:flex;align-items:center;gap:10px;border:2px solid var(--ink);border-radius:14px;background:var(--paper);padding:6px 14px;margin:10px 0 18px}
+.calc-in .rs{font-family:var(--head);font-weight:800;font-size:1.3rem;color:var(--green)}
+.calc-in input{flex:1;border:none;outline:none;background:none;font-size:1.25rem;font-weight:700;font-family:var(--head);min-width:0;padding:8px 0}
+.split-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.split-row .sl{width:96px;font-weight:700;font-size:0.88rem}
+.split-row input[type=range]{flex:1;accent-color:var(--green);height:32px}
+.split-row .pv{width:46px;text-align:right;font-family:var(--head);font-weight:800}
+.split-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+@media(max-width:480px){.split-out{grid-template-columns:1fr}}
+.so-box{border:2px solid var(--ink);border-radius:14px;padding:12px;text-align:center}
+.so-box .sa{font-family:var(--head);font-weight:800;font-size:1.15rem}
+.so-box .sk{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.warn{background:var(--coral-soft);border:2px solid var(--coral);border-radius:12px;padding:10px 14px;font-size:0.85rem;margin-top:12px;display:none}
+.pgw{height:18px;border:2px solid var(--ink);border-radius:100px;background:var(--paper);overflow:hidden;margin:10px 0 6px}
+.pgf{height:100%;background:var(--green);border-radius:100px;transition:width .6s cubic-bezier(0.16,1,0.3,1)}
+
+/* QUIZ */
+.q-opt{display:block;width:100%;text-align:left;border:2px solid var(--ink);background:var(--paper);border-radius:14px;padding:14px 16px;font-weight:600;font-size:0.95rem;margin-bottom:10px;box-shadow:var(--shadow);transition:transform .12s,box-shadow .12s}
+.q-opt:active{transform:translate(2px,2px);box-shadow:none}
+.q-opt.right{background:var(--green-soft);border-color:var(--green)}
+.q-opt.wrongpick{background:var(--coral-soft);border-color:var(--coral)}
+.q-opt:disabled{cursor:default}
+.q-progress{display:flex;gap:6px;margin-bottom:18px}
+.q-pip{flex:1;height:7px;border-radius:4px;background:var(--line)}
+.q-pip.done{background:var(--green)}.q-pip.now{background:var(--yellow)}
+.flip-card{perspective:900px;margin-bottom:16px;cursor:pointer}
+.flip-in{position:relative;width:100%;min-height:190px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(0.16,1,0.3,1)}
+.flip-card.flipped .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid var(--ink);border-radius:var(--r);box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;gap:8px}
+.flip-f{background:var(--blue-soft)}
+.flip-b{background:var(--paper);transform:rotateY(180deg)}
+.flip-f .fq{font-family:var(--head);font-weight:800;font-size:1.2rem}
+.flip-hint{font-size:0.72rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.08em}
+.tot-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.tot-row .q-opt{margin:0;text-align:center;font-family:var(--head);font-weight:800;font-size:1.05rem;padding:22px 12px}
+.score-big{font-family:var(--head);font-size:4rem;font-weight:800;color:var(--green);line-height:1;text-align:center}
+.q-fb{border-radius:12px;padding:12px 16px;font-size:0.9rem;margin:4px 0 14px;display:none}
+.q-fb.ok{display:block;background:var(--green-soft);border:2px solid var(--green)}
+.q-fb.no{display:block;background:var(--coral-soft);border:2px solid var(--coral)}
+
+/* MODAL (onboarding/profile) */
+.modal-bg{position:fixed;inset:0;z-index:100;background:rgba(44,34,24,0.5);display:none;place-items:center;padding:16px;overflow-y:auto}
+.modal-bg.on{display:grid}
+.modal{background:var(--cream);border:2px solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 rgba(44,34,24,0.25);max-width:440px;width:100%;padding:26px 22px;animation:up .3s cubic-bezier(0.16,1,0.3,1)}
+.modal h2{font-size:1.45rem;font-weight:800;margin-bottom:4px}
+.modal .ms{color:var(--ink-soft);font-size:0.9rem;margin-bottom:18px}
+.name-in{width:100%;border:2px solid var(--ink);border-radius:14px;background:var(--paper);padding:13px 16px;font-size:1.05rem;font-weight:700;font-family:var(--head);outline:none;margin-bottom:18px}
+.av-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.av-cell{border:2px solid var(--line);border-radius:16px;background:var(--paper);padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:0.6rem;font-weight:700;color:var(--ink-soft)}
+.av-cell svg{width:44px;height:44px}
+.av-cell.on{border-color:var(--green);background:var(--green-soft);box-shadow:var(--shadow)}
+.lang-big{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+.lang-big button{border:2px solid var(--ink);border-radius:16px;background:var(--paper);padding:18px;font-family:var(--head);font-weight:800;font-size:1.15rem;box-shadow:var(--shadow)}
+.lang-big button:active{transform:translate(2px,2px);box-shadow:none}
+
+/* doodle scatter */
+.scatter{position:absolute;pointer-events:none;opacity:0.5}
+/* confetti */
+#cfx{position:fixed;inset:0;pointer-events:none;z-index:200;overflow:hidden}
+.cf{position:absolute;top:-12px;width:9px;height:9px;border-radius:2px;animation:cfall 2.6s linear forwards}
+@keyframes cfall{to{transform:translateY(105vh) rotate(660deg);opacity:0.3}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.foot-note{text-align:center;color:var(--ink-faint);font-size:0.78rem;margin-top:34px;line-height:1.7}
+</style>
+</head>
+<body>
+<div id="cfx" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="top-in">
+    <div class="logo" id="logoHome"><span id="logoCoin"></span>Paisa<span class="tm">✦</span></div>
+    <div class="top-sp"></div>
+    <div class="lang-tg" role="group" aria-label="Language">
+      <button id="langEn">EN</button><button id="langHi">हिं</button>
+    </div>
+    <button class="user-chip" id="userChip" aria-label="Profile"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="page" id="page-home"></section>
+  <section class="page" id="page-schemes"></section>
+  <section class="page" id="page-learn"></section>
+  <section class="page" id="page-budget"></section>
+  <section class="page" id="page-quiz"></section>
+</main>
+
+<nav class="bnav" id="bnav" aria-label="Main"></nav>
+
+<div class="ovl" id="ovl">
+  <div class="ovl-head"><button class="btn w sm" id="ovlBack">←</button><div class="ot" id="ovlTitle"></div></div>
+  <div class="ovl-body" id="ovlBody"></div>
+</div>
+
+<div class="modal-bg" id="modalBg"><div class="modal" id="modalBox"></div></div>
+
+<script>
+'use strict';
+/* ───────── helpers & state ───────── */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const LSKEY='paisa_v1';
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+const FORTNIGHT=Math.max(0,Math.floor((Date.now()-new Date('2026-01-05').getTime())/(15*86400000)));
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+let S=null;
+function load(){
+  try{S=JSON.parse(localStorage.getItem(LSKEY));}catch(e){S=null;}
+  if(!S)S={name:'',avatar:0,lang:'en',points:0,visits:[],quizzes:{}};
+  const t=today();
+  if(!S.visits.includes(t))S.visits.push(t);
+  S.visits=S.visits.slice(-30);
+  save();
+}
+function save(){localStorage.setItem(LSKEY,JSON.stringify(S));}
+function streakCount(){
+  let n=0;const d=new Date();
+  for(;;){
+    const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    if(S.visits.includes(k)){n++;d.setDate(d.getDate()-1);}else break;
+  }
+  return n;
+}
+const L=k=>(T[S.lang][k]!==undefined?T[S.lang][k]:T.en[k]||k);
+const P=o=>o[S.lang]||o.en;
+
+/* ───────── UI strings ───────── */
+const T={
+en:{
+  navHome:'Home',navSchemes:'Schemes',navLearn:'Learn',navBudget:'Budget',navQuiz:'Quizzes',
+  hi1:'Hi',hi2:'good to see you!',streak:'Your visit streak',streakDay:'day',streakDays:'days',
+  streakMsg0:'Visit daily to grow your streak!',streakMsg1:'Good start — come back tomorrow!',streakMsg3:'You’re on a roll!',streakMsg5:'Amazing! Real habits are forming ✦',
+  fortnight:'This fortnight',quizChallenge:'Quiz Challenge',playNow:'Play now',replay:'Play again',
+  schemeOfFn:'Scheme of the Fortnight',seeScheme:'See how to apply',
+  leaderboard:'Top learners this week',you:'You',pts:'pts',
+  fresh:'Fresh on Paisa',new:'NEW',
+  schemesTitle:'Government Schemes',schemesSub:'Real schemes your family may already be eligible for — explained like a friend would, not like a form.',
+  all:'All',health:'Health',banking:'Banking',insurance:'Insurance',education:'Education',pension:'Pension',
+  who:'Who is this for?',youGet:'What you get',howApply:'How to apply, step by step',docs:'Documents to keep ready',official:'Open official website',officialNote:'Always use the official .gov.in site. No agent or fee is needed for any of these schemes.',
+  learnTitle:'Learn',learnSub:'Short reads that make money make sense. Read together — kids and parents.',minRead:'min read',didYouKnow:'Did you know?',tryQuiz:'Try the quiz on this →',
+  budgetTitle:'Budget',budgetSub:'Simple tools for real households. Your numbers never leave this phone.',
+  calcTitle:'The 50-30-20 Calculator',calcSub:'Enter your monthly take-home income. We’ll split it into Needs, Wants and Savings — you can adjust the split.',
+  income:'Monthly income',needs:'Needs',wants:'Wants',savings:'Savings',
+  needsEx:'rent, food, school fees, travel, bills',wantsEx:'festivals, treats, outings, extras',savingsEx:'bank, emergency fund, SSY, pension',
+  splitWarn:'Your split adds up to {x}% — adjust the sliders to reach 100%.',reset5030:'Reset to 50-30-20',perMonth:'/month',
+  efTitle:'Emergency Fund Tracker',efSub:'Experts suggest keeping 3–6 months of expenses saved for emergencies.',
+  efExp:'Your monthly expenses',efSaved:'Saved so far',efMonths:'months covered',
+  ef0:'Start small — even ₹500/month builds protection.',ef1:'A good start! Keep adding every month.',ef3:'Solid! You can handle most surprises.',ef6:'Excellent — your family has a true safety net ✦',
+  methods:'Budgeting methods that work',stories:'Real family stories',
+  quizTitle:'Quizzes',quizSub:'Five questions, three flashcards, one rapid round. Earn points, climb the board.',
+  done:'Done',best:'Best',start:'Start',locked:'New quiz every 15 days — old ones stay forever.',
+  qOf:'Question {a} of {b}',flashOf:'Flashcard {a} of {b}',totOf:'Quick round {a} of {b}',
+  tapFlip:'Tap to flip',knew:'I knew it ✓',learning:'Still learning',
+  scorecard:'Your scorecard',earned:'points earned',rank:'Your rank this week',replayNote:'Replays are practice — points are earned on first play.',
+  next:'Next →',finish:'See my score',correct:'Correct!',oops:'Not quite —',
+  onbWelcome:'Welcome to Paisa!',onbSub:'Your free money-learning companion from the MuSo Financial Literacy Programme. No login, no accounts — everything stays on your phone.',
+  onbLang:'Choose your language',onbName:'What should we call you?',onbNamePh:'Your name or nickname',
+  onbAvatar:'Pick your character',startBtn:'Let’s go!',
+  profile:'Your profile',saveBtn:'Save',resetAll:'Reset all my progress',resetConfirm:'This will erase your name, points and quiz history on this phone. Sure?',
+  totalPts:'Total points',quizzesDone:'Quizzes done',
+  footNote:'Made with ❤ for the MuSo Financial Literacy Programme families.<br>No login · No tracking · Works offline-ish · Free forever',
+  back:'Back',close:'Close',
+  feedQuiz:'New quiz to play',feedScheme:'Scheme guide',feedArticle:'New read',feedStory:'Family story',feedTool:'Tool',
+  greetMorning:'Good morning',greetDay:'Hello',greetEvening:'Good evening',
+},
+hi:{
+  navHome:'होम',navSchemes:'योजनाएँ',navLearn:'सीखें',navBudget:'बजट',navQuiz:'क्विज़',
+  hi1:'नमस्ते',hi2:'आपको देखकर अच्छा लगा!',streak:'आपकी विज़िट स्ट्रीक',streakDay:'दिन',streakDays:'दिन',
+  streakMsg0:'रोज़ आइए और स्ट्रीक बढ़ाइए!',streakMsg1:'अच्छी शुरुआत — कल फिर आइए!',streakMsg3:'वाह, सिलसिला जम रहा है!',streakMsg5:'कमाल! अच्छी आदत बन रही है ✦',
+  fortnight:'इस पखवाड़े',quizChallenge:'क्विज़ चैलेंज',playNow:'अभी खेलें',replay:'फिर खेलें',
+  schemeOfFn:'पखवाड़े की योजना',seeScheme:'आवेदन का तरीका देखें',
+  leaderboard:'इस हफ़्ते के टॉप लर्नर',you:'आप',pts:'अंक',
+  fresh:'पैसा पर नया क्या है',new:'नया',
+  schemesTitle:'सरकारी योजनाएँ',schemesSub:'असली योजनाएँ जिनके लिए आपका परिवार शायद आज ही पात्र है — सरकारी फ़ॉर्म की भाषा में नहीं, दोस्त की भाषा में।',
+  all:'सभी',health:'स्वास्थ्य',banking:'बैंकिंग',insurance:'बीमा',education:'शिक्षा',pension:'पेंशन',
+  who:'यह किसके लिए है?',youGet:'आपको क्या मिलेगा',howApply:'आवेदन कैसे करें — आसान स्टेप',docs:'कौन से दस्तावेज़ तैयार रखें',official:'सरकारी वेबसाइट खोलें',officialNote:'हमेशा सरकारी .gov.in वेबसाइट ही इस्तेमाल करें। इन योजनाओं के लिए किसी एजेंट या फ़ीस की ज़रूरत नहीं है।',
+  learnTitle:'सीखें',learnSub:'छोटी-छोटी बातें जो पैसे को आसान बना दें। बच्चे और माता-पिता साथ पढ़ें।',minRead:'मिनट',didYouKnow:'क्या आप जानते हैं?',tryQuiz:'इस पर क्विज़ खेलें →',
+  budgetTitle:'बजट',budgetSub:'असली घरों के लिए आसान टूल। आपके आँकड़े इसी फ़ोन में रहते हैं।',
+  calcTitle:'50-30-20 कैलकुलेटर',calcSub:'अपनी महीने की कमाई लिखिए। हम उसे ज़रूरतों, इच्छाओं और बचत में बाँट देंगे — आप बदलाव भी कर सकते हैं।',
+  income:'महीने की कमाई',needs:'ज़रूरतें',wants:'इच्छाएँ',savings:'बचत',
+  needsEx:'किराया, राशन, स्कूल फ़ीस, सफ़र, बिल',wantsEx:'त्योहार, मिठाई, घूमना, शौक',savingsEx:'बैंक, इमरजेंसी फ़ंड, SSY, पेंशन',
+  splitWarn:'आपका बँटवारा {x}% है — स्लाइडर घुमाकर 100% कीजिए।',reset5030:'50-30-20 पर वापस',perMonth:'/महीना',
+  efTitle:'इमरजेंसी फ़ंड ट्रैकर',efSub:'सलाह है कि 3–6 महीने के खर्च जितनी बचत हमेशा अलग रखी जाए।',
+  efExp:'महीने का खर्च',efSaved:'अब तक की बचत',efMonths:'महीने सुरक्षित',
+  ef0:'छोटी शुरुआत कीजिए — ₹500/महीना भी ढाल बनता है।',ef1:'अच्छी शुरुआत! हर महीने जोड़ते रहिए।',ef3:'बहुत बढ़िया! ज़्यादातर मुश्किलें अब डरा नहीं सकतीं।',ef6:'शानदार — आपके परिवार के पास सच्चा सुरक्षा कवच है ✦',
+  methods:'बजट बनाने के आज़माए हुए तरीके',stories:'असली परिवारों की कहानियाँ',
+  quizTitle:'क्विज़',quizSub:'पाँच सवाल, तीन फ़्लैशकार्ड, एक झटपट राउंड। अंक कमाइए, बोर्ड पर चढ़िए।',
+  done:'पूरा',best:'बेस्ट',start:'शुरू करें',locked:'हर 15 दिन में नई क्विज़ — पुरानी हमेशा खुली रहती हैं।',
+  qOf:'सवाल {a} / {b}',flashOf:'फ़्लैशकार्ड {a} / {b}',totOf:'झटपट राउंड {a} / {b}',
+  tapFlip:'पलटने के लिए टैप करें',knew:'मुझे पता था ✓',learning:'अभी सीख रहा/रही हूँ',
+  scorecard:'आपका स्कोरकार्ड',earned:'अंक मिले',rank:'इस हफ़्ते आपकी रैंक',replayNote:'दोबारा खेलना प्रैक्टिस है — अंक पहली बार में मिलते हैं।',
+  next:'आगे →',finish:'मेरा स्कोर देखें',correct:'बिलकुल सही!',oops:'थोड़ा चूक गए —',
+  onbWelcome:'पैसा में स्वागत है!',onbSub:'MuSo फ़ाइनेंशियल लिटरेसी प्रोग्राम का मुफ़्त साथी। न लॉगिन, न खाता — सब कुछ आपके फ़ोन में ही रहता है।',
+  onbLang:'अपनी भाषा चुनिए',onbName:'हम आपको क्या बुलाएँ?',onbNamePh:'आपका नाम या निकनेम',
+  onbAvatar:'अपना किरदार चुनिए',startBtn:'चलिए शुरू करें!',
+  profile:'आपकी प्रोफ़ाइल',saveBtn:'सेव करें',resetAll:'मेरी पूरी प्रगति मिटाएँ',resetConfirm:'इससे इस फ़ोन पर आपका नाम, अंक और क्विज़ इतिहास मिट जाएगा। पक्का?',
+  totalPts:'कुल अंक',quizzesDone:'पूरी की गई क्विज़',
+  footNote:'MuSo फ़ाइनेंशियल लिटरेसी प्रोग्राम के परिवारों के लिए ❤ से बनाया गया।<br>न लॉगिन · न ट्रैकिंग · हमेशा मुफ़्त',
+  back:'वापस',close:'बंद करें',
+  feedQuiz:'खेलने के लिए नई क्विज़',feedScheme:'योजना गाइड',feedArticle:'नया लेख',feedStory:'परिवार की कहानी',feedTool:'टूल',
+  greetMorning:'सुप्रभात',greetDay:'नमस्ते',greetEvening:'शुभ संध्या',
+}};
+/* ───────── doodles (hand-drawn style inline SVG) ───────── */
+const DD={
+coin:(c='#f6b93b')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 5C13 5.5 5.5 13 5 24c-.5 11 8 18.6 19 19 11 .4 19.5-8 19-19C42.5 13 35 4.5 24 5Z" fill="${c}" stroke="#2c2218" stroke-width="2.4"/><path d="M24 11c-7 .3-12.6 5-13 13-.4 7.6 5.5 12.7 13 13" stroke="#2c2218" stroke-width="2" stroke-linecap="round" opacity=".4"/><text x="24" y="31" text-anchor="middle" font-family="Baloo 2,cursive" font-weight="800" font-size="19" fill="#2c2218">₹</text></svg>`,
+piggy:(c='#e85d4a')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M9 27c-.3-7.6 6-13.4 15-13.6 9.3-.2 15.4 5.3 15.6 12.6.1 4.6-2 8.3-5.6 10.5l.8 4.3-4.7-1.2c-1.9.5-4 .7-6.1.7l-4.3.1-.7 3-3.9-1.6-1-3.4C11.5 36 9.2 32 9 27Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="M20 13.8l-1.2-4.3 5.4 1.8" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/><path d="M21 19.5h7" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/><circle cx="33" cy="25" r="1.8" fill="#2c2218"/><path d="M6.5 24.5c-1.8.4-2.6 2-2 3.8" stroke="#2c2218" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+bulb:(c='#f6b93b')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 6c-7.8.2-13 5.7-13 12.6 0 4.6 2.3 7.6 4.6 10.2 1.5 1.7 2.4 3.4 2.7 5.7h11.4c.3-2.3 1.2-4 2.7-5.7 2.3-2.6 4.6-5.6 4.6-10.2C37 11.7 31.8 5.8 24 6Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="M19.5 38.5h9M21 42.5h6" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/><path d="M20 18l4 4.4 4.4-4" stroke="#2c2218" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+star:(c='#3b6fb6')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 5.5c1.4 6.6 3.5 11.8 6.4 14.3 2.8 2.4 7 3.7 12.1 4.2-5.1.6-9.3 2-12.1 4.5-2.9 2.6-5 7.6-6.4 14-1.4-6.4-3.5-11.4-6.4-14-2.8-2.5-7-3.9-12.1-4.5 5.1-.5 9.3-1.8 12.1-4.2 2.9-2.5 5-7.7 6.4-14.3Z" fill="${c}" stroke="#2c2218" stroke-width="2.2" stroke-linejoin="round"/></svg>`,
+arrow:(c='#1d9e75')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M7 36c8.5 1.5 15-1 19.5-6.5C30.5 24.6 32.5 18 33 11" stroke="${c}" stroke-width="3" stroke-linecap="round"/><path d="M26.5 13.5 33 10l3 7" stroke="${c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+bag:(c='#1d9e75')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M18 13.5 14.5 8h19L30 13.5c5.8 3 9.6 8.6 9.9 16 .3 8.4-6.4 13-15.9 13S7.8 37.9 8.1 29.5c.3-7.4 4.1-13 9.9-16Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="M18 13.5h12" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/><text x="24" y="33" text-anchor="middle" font-family="Baloo 2,cursive" font-weight="800" font-size="15" fill="#fffdf8">₹</text></svg>`,
+jar:(c='#3b6fb6')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M15 12h18M14 12c-2.5 4-4 8.6-4 14 0 9.4 5.6 15.6 14 15.5 8.4-.1 14-6.1 14-15.5 0-5.4-1.5-10-4-14" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/><path d="M16 9.5c0-1.7 1.2-2.6 3-2.5h10c1.8-.1 3 .8 3 2.5s-1.2 2.6-3 2.5H19c-1.8.1-3-.8-3-2.5Z" fill="${c}" stroke="#2c2218" stroke-width="2.2"/><circle cx="20" cy="32" r="4.2" fill="#f6b93b" stroke="#2c2218" stroke-width="2"/><circle cx="28.5" cy="35" r="4.2" fill="#f6b93b" stroke="#2c2218" stroke-width="2"/><circle cx="27" cy="26.5" r="4.2" fill="#f6b93b" stroke="#2c2218" stroke-width="2"/></svg>`,
+shield:(c='#3b6fb6')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 5.5c5 2.8 10.3 4.3 15.5 4.5.6 12.8-3.6 25.6-15.5 32.5C12.1 35.6 7.9 22.8 8.5 10 13.7 9.8 19 8.3 24 5.5Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="m17.5 23.5 4.6 4.8 8.4-9.6" stroke="#fffdf8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+heart:(c='#e85d4a')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 41C13 33.6 6.3 26.6 6.6 18.6 6.8 12.7 11 8.6 16.4 8.5c3.3-.1 6 1.5 7.6 4 1.6-2.5 4.3-4.1 7.6-4 5.4.1 9.6 4.2 9.8 10.1.3 8-6.4 15-17.4 22.4Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/></svg>`,
+book:(c='#1d9e75')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 11c-4-3-9.6-4-16-3.2V37c6.4-.8 12 .2 16 3.2 4-3 9.6-4 16-3.2V7.8C33.6 7 28 8 24 11Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 11v29" stroke="#2c2218" stroke-width="2.4"/><path d="M13 16c2.8-.2 5.3.2 7.5 1M13 22c2.8-.2 5.3.2 7.5 1M27.5 17c2.2-.8 4.7-1.2 7.5-1M27.5 23c2.2-.8 4.7-1.2 7.5-1" stroke="#fffdf8" stroke-width="2" stroke-linecap="round"/></svg>`,
+phone:(c='#3b6fb6')=>`<svg viewBox="0 0 48 48" fill="none"><rect x="13" y="5" width="22" height="38" rx="5" fill="${c}" stroke="#2c2218" stroke-width="2.4"/><path d="M20 9.5h8" stroke="#fffdf8" stroke-width="2.4" stroke-linecap="round"/><circle cx="24" cy="37.5" r="2" fill="#fffdf8"/><text x="24" y="29" text-anchor="middle" font-family="Baloo 2,cursive" font-weight="800" font-size="13" fill="#fffdf8">UPI</text></svg>`,
+girl:(c='#e85d4a')=>`<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="19" r="11.5" fill="#ffd9a0" stroke="#2c2218" stroke-width="2.4"/><path d="M12.8 17C13.8 9.8 18.3 6.2 24 6.2S34.2 9.8 35.2 17c-3.4-1.6-6-4.4-7.4-7-2 3-5 5.6-15 7Z" fill="${c}" stroke="#2c2218" stroke-width="2.2" stroke-linejoin="round"/><circle cx="20" cy="19.5" r="1.5" fill="#2c2218"/><circle cx="28" cy="19.5" r="1.5" fill="#2c2218"/><path d="M20.5 24.5c2.2 1.8 4.8 1.8 7 0" stroke="#2c2218" stroke-width="2" stroke-linecap="round"/><path d="M14 43c.8-7 4.6-10.5 10-10.5S33.2 36 34 43" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/></svg>`,
+sprout:(c='#1d9e75')=>`<svg viewBox="0 0 48 48" fill="none"><path d="M24 42V22" stroke="#2c2218" stroke-width="2.6" stroke-linecap="round"/><path d="M24 24c-1-7-5.6-10.6-13-10 .6 7.4 5 11 13 10Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 18c.8-5.6 4.5-8.6 10.5-8.2-.5 6-4 9-10.5 8.2Z" fill="${c}" stroke="#2c2218" stroke-width="2.4" stroke-linejoin="round"/><path d="M15 42h18" stroke="#2c2218" stroke-width="2.6" stroke-linecap="round"/></svg>`,
+};
+/* avatar characters */
+function avFace(skin,acc,prop){return `<svg viewBox="0 0 64 64" fill="none"><path d="M32 7c13.5-.4 22.6 8.5 23 22 .4 14-9 24.4-23 24-13.4-.4-23.4-10-23-24C9.4 15.5 18.5 7.4 32 7Z" fill="${skin}" stroke="#2c2218" stroke-width="2.6"/>${acc}<circle cx="25" cy="28" r="2.2" fill="#2c2218"/><circle cx="39" cy="28" r="2.2" fill="#2c2218"/><path d="M26 36c3.6 3 8.4 3 12 0" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/>${prop}</svg>`;}
+const AVATARS=[
+ {n:{en:'Coin Kid',hi:'सिक्का दोस्त'},svg:avFace('#ffd9a0','<path d="M14 22c2-7 8-11.5 18-11.5S48 15 50 22" fill="#3b6fb6" stroke="#2c2218" stroke-width="2.4"/>','<circle cx="50" cy="48" r="9" fill="#f6b93b" stroke="#2c2218" stroke-width="2.4"/><text x="50" y="52.5" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="11" fill="#2c2218">₹</text>')},
+ {n:{en:'Piggy Pal',hi:'गुल्लक साथी'},svg:avFace('#fbc9b8','<path d="M16 20c3-6.5 8.5-10 16-10s13 3.5 16 10" fill="#e85d4a" stroke="#2c2218" stroke-width="2.4"/>','<path d="M42 44c-.2-4.4 3.4-7.6 8.6-7.7 5.3-.1 8.8 3 8.9 7.2.1 2.6-1.2 4.7-3.2 6l.4 2.5-2.7-.7c-1 .3-2.2.4-3.4.4-5 .1-8.4-3-8.6-7.7Z" fill="#e85d4a" stroke="#2c2218" stroke-width="2.2"/>')},
+ {n:{en:'Jar Girl',hi:'बचत वाली'},svg:avFace('#e8b88a','<path d="M13 23C14 14 21 9.5 32 9.5S50 14 51 23c-5-1.8-8.6-4.8-10.5-8-3 3.6-8 6.4-27.5 8Z" fill="#2c2218" stroke="#2c2218" stroke-width="2"/>','<path d="M44 39h12M45 40c-1.2 2.2-1.9 4.6-1.9 7.4 0 4.8 2.9 8.1 6.9 8 4-.1 6.9-3.2 6.9-8 0-2.8-.7-5.2-1.9-7.4" stroke="#2c2218" stroke-width="2.2" stroke-linecap="round" fill="#fffdf8"/><circle cx="48" cy="49" r="2.4" fill="#f6b93b" stroke="#2c2218" stroke-width="1.6"/><circle cx="52.5" cy="51" r="2.4" fill="#f6b93b" stroke="#2c2218" stroke-width="1.6"/>')},
+ {n:{en:'Bulb Boy',hi:'आइडिया बॉय'},svg:avFace('#d9a06b','<path d="M18 19c2.5-6 7.5-9.5 14-9.5S43.5 13 46 19" fill="#1d9e75" stroke="#2c2218" stroke-width="2.4"/>','<path d="M51 36c-4.4.1-7.4 3.2-7.4 7.2 0 2.6 1.3 4.3 2.6 5.8.9 1 1.4 2 1.6 3.3h6.4c.2-1.3.7-2.3 1.6-3.3 1.3-1.5 2.6-3.2 2.6-5.8 0-4-3-7.3-7.4-7.2Z" fill="#f6b93b" stroke="#2c2218" stroke-width="2.2"/><path d="M48.5 54.5h5" stroke="#2c2218" stroke-width="2.2" stroke-linecap="round"/>')},
+ {n:{en:'Book Buddy',hi:'किताबी दोस्त'},svg:avFace('#ffd9a0','<circle cx="25" cy="28" r="6.5" fill="none" stroke="#2c2218" stroke-width="2.2"/><circle cx="39" cy="28" r="6.5" fill="none" stroke="#2c2218" stroke-width="2.2"/><path d="M31.5 28h1" stroke="#2c2218" stroke-width="2.2"/>','<path d="M44 42c2.8-2 6.6-2.7 11-2.2v14c-4.4-.5-8.2.2-11 2.2-2.8-2-6.6-2.7-11-2.2v-14c4.4-.5 8.2.2 11 2.2Z" fill="#1d9e75" stroke="#2c2218" stroke-width="2.2" stroke-linejoin="round" transform="translate(2,-1)"/>')},
+ {n:{en:'Shield Star',hi:'सुरक्षा स्टार'},svg:avFace('#e8b88a','<path d="M15 21c2-7 8-11 17-11s15 4 17 11" fill="#f6b93b" stroke="#2c2218" stroke-width="2.4"/>','<path d="M51 36c2.8 1.6 5.8 2.4 8.7 2.5.3 7.2-2 14.4-8.7 18.2-6.7-3.8-9-11-8.7-18.2 2.9-.1 5.9-.9 8.7-2.5Z" fill="#3b6fb6" stroke="#2c2218" stroke-width="2.2"/><path d="m47.5 45.5 2.6 2.7 4.7-5.4" stroke="#fffdf8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>')},
+ {n:{en:'Sprout Didi',hi:'पौधा दीदी'},svg:avFace('#d9a06b','<path d="M13 24C13.5 14.5 20.5 9 32 9s18.5 5.5 19 15c-4.5-1.5-7.8-4-9.8-7.4C38 20.4 32.5 23 13 24Z" fill="#7a4f2a" stroke="#2c2218" stroke-width="2.2"/><circle cx="49" cy="14" r="3.6" fill="#e85d4a" stroke="#2c2218" stroke-width="1.8"/>','<path d="M52 56V44" stroke="#2c2218" stroke-width="2.4" stroke-linecap="round"/><path d="M52 46c-.7-4.6-3.7-7-8.5-6.6.4 4.9 3.3 7.3 8.5 6.6Z" fill="#1d9e75" stroke="#2c2218" stroke-width="2"/><path d="M52 42c.5-3.7 3-5.7 7-5.4-.3 4-2.7 6-7 5.4Z" fill="#1d9e75" stroke="#2c2218" stroke-width="2"/>')},
+ {n:{en:'Rocket Raju',hi:'रॉकेट राजू'},svg:avFace('#fbc9b8','<path d="M20 12.5c3.6-2.6 8-3.9 12-3.9s8.4 1.3 12 3.9l-2.6 6.3c-3-1.7-6.2-2.6-9.4-2.6s-6.4.9-9.4 2.6Z" fill="#3b6fb6" stroke="#2c2218" stroke-width="2.2"/>','<path d="M50 36c3.8 2.7 5.8 6.8 5.7 11.7l-4.3-.9-1.5 4.1-3-3.2-4.3 1.6c1-4.9 3.5-10 7.4-13.3Z" fill="#e85d4a" stroke="#2c2218" stroke-width="2.2" stroke-linejoin="round"/><circle cx="50.5" cy="42.5" r="1.8" fill="#fffdf8"/>')},
+];
+/* ───────── SCHEMES (6) ───────── */
+const SCHEMES=[
+{id:'jandhan',cat:'banking',icon:'bag',col:'var(--green)',soft:'var(--green-soft)',link:'https://pmjdy.gov.in',
+ en:{name:'PM Jan Dhan Yojana',tag:'A free bank account for every family — zero balance needed',
+  who:'Any Indian aged 10 or above who does not have a bank account. No minimum income, no minimum balance — this account was designed for families exactly like ours.',
+  get:['A savings bank account with <b>zero balance requirement</b>','A free RuPay debit card','Accident insurance cover of <b>₹2 lakh</b> with the card','Overdraft facility up to <b>₹10,000</b> after 6 months of good use','Direct transfer of government benefits straight into the account'],
+  steps:['Walk into any bank branch or a Bank Mitra (banking correspondent) near you — no appointment needed.','Ask for a "Jan Dhan account" — every bank is required to open one.','Fill the one-page form. The bank staff will help if you ask.','Give your Aadhaar card. If your mobile is linked to Aadhaar, it gets done faster.','Collect your passbook and RuPay card. Done — usually the same day!'],
+  docs:['Aadhaar card','One passport-size photo','Mobile number (recommended)']},
+ hi:{name:'पीएम जन धन योजना',tag:'हर परिवार के लिए मुफ़्त बैंक खाता — ज़ीरो बैलेंस पर',
+  who:'10 साल या उससे बड़ा कोई भी भारतीय जिसका बैंक खाता नहीं है। न कम-से-कम कमाई की शर्त, न मिनिमम बैलेंस — यह खाता हमारे जैसे परिवारों के लिए ही बना है।',
+  get:['<b>ज़ीरो बैलेंस</b> वाला बचत खाता','मुफ़्त RuPay डेबिट कार्ड','कार्ड के साथ <b>₹2 लाख</b> का दुर्घटना बीमा','6 महीने अच्छे इस्तेमाल के बाद <b>₹10,000</b> तक ओवरड्राफ़्ट','सरकारी योजनाओं का पैसा सीधे खाते में'],
+  steps:['पास की किसी भी बैंक शाखा या बैंक मित्र के पास जाइए — कोई अपॉइंटमेंट नहीं चाहिए।','"जन धन खाता खोलना है" बोलिए — हर बैंक के लिए यह खोलना ज़रूरी है।','एक पेज का फ़ॉर्म भरिए। माँगने पर बैंक कर्मचारी मदद करेंगे।','आधार कार्ड दीजिए। मोबाइल आधार से जुड़ा हो तो काम और जल्दी होता है।','पासबुक और RuPay कार्ड लीजिए। बस — ज़्यादातर उसी दिन हो जाता है!'],
+  docs:['आधार कार्ड','एक पासपोर्ट साइज़ फ़ोटो','मोबाइल नंबर (बेहतर रहेगा)']}},
+{id:'pmsby',cat:'insurance',icon:'shield',col:'var(--blue)',soft:'var(--blue-soft)',link:'https://jansuraksha.gov.in',
+ en:{name:'PM Suraksha Bima Yojana',tag:'₹2 lakh accident insurance for just ₹20 a year',
+  who:'Anyone aged 18 to 70 with a bank account. That is the entire eligibility. At ₹20 a year — less than two cups of chai — this is the cheapest insurance in India.',
+  get:['<b>₹2 lakh</b> paid to family in case of accidental death','<b>₹2 lakh</b> for total permanent disability (both eyes/limbs)','<b>₹1 lakh</b> for partial permanent disability','Premium of just <b>₹20 per year</b>, auto-deducted from your account'],
+  steps:['Go to the bank where you have an account (Jan Dhan accounts work perfectly).','Ask for the "PMSBY form" — it is a single page.','Tick the auto-debit permission so ₹20 is deducted every year automatically.','Submit. Your cover starts from June 1 and renews every year on its own.','Keep the acknowledgement slip safely with your family — they should know this cover exists.'],
+  docs:['Bank account details / passbook','Aadhaar card','Nominee details (name of family member)']},
+ hi:{name:'पीएम सुरक्षा बीमा योजना',tag:'सिर्फ़ ₹20 साल में ₹2 लाख का दुर्घटना बीमा',
+  who:'18 से 70 साल का कोई भी व्यक्ति जिसका बैंक खाता है। बस इतनी ही शर्त है। ₹20 साल — दो कप चाय से भी कम — में यह भारत का सबसे सस्ता बीमा है।',
+  get:['दुर्घटना में मृत्यु पर परिवार को <b>₹2 लाख</b>','पूर्ण स्थायी विकलांगता पर <b>₹2 लाख</b>','आंशिक स्थायी विकलांगता पर <b>₹1 लाख</b>','प्रीमियम सिर्फ़ <b>₹20 प्रति वर्ष</b>, खाते से अपने आप कटता है'],
+  steps:['जिस बैंक में आपका खाता है वहाँ जाइए (जन धन खाता भी चलेगा)।','"PMSBY फ़ॉर्म" माँगिए — सिर्फ़ एक पेज का होता है।','ऑटो-डेबिट की अनुमति पर टिक कीजिए ताकि ₹20 हर साल अपने आप कटे।','जमा कर दीजिए। कवर 1 जून से शुरू होकर हर साल अपने आप रिन्यू होता है।','रसीद सँभालकर रखिए और परिवार को ज़रूर बताइए कि यह बीमा है।'],
+  docs:['बैंक खाते की जानकारी / पासबुक','आधार कार्ड','नॉमिनी की जानकारी (परिवार के सदस्य का नाम)']}},
+{id:'ssy',cat:'education',icon:'girl',col:'var(--coral)',soft:'var(--coral-soft)',link:'https://www.nsiindia.gov.in',
+ en:{name:'Sukanya Samriddhi Yojana',tag:'8.2% interest savings for your daughter — the highest safe return in India',
+  who:'Parents of a girl child below 10 years of age. You can open one account per daughter (up to two daughters). This is the single best savings scheme for a girl’s education and future.',
+  get:['<b>8.2% yearly interest</b> — higher than any bank FD, fully government-guaranteed','Start with just <b>₹250 a year</b>; maximum ₹1.5 lakh a year','All interest and the final amount are <b>completely tax-free</b>','Partial withdrawal allowed for her education after she turns 18','Example: ₹1,000/month from age 5 grows to roughly <b>₹5.5 lakh</b> by age 21'],
+  steps:['Go to any post office or major bank (SBI, PNB, etc.) with your daughter’s documents.','Ask for the "Sukanya Samriddhi account opening form".','Fill it with your daughter as account holder and you as guardian.','Deposit the opening amount — minimum ₹250 is enough to start.','Collect the passbook. Deposit any amount, any time during the year — even ₹100 at a time.'],
+  docs:['Daughter’s birth certificate','Parent’s Aadhaar + PAN','Address proof','Passport photos of parent and child']},
+ hi:{name:'सुकन्या समृद्धि योजना',tag:'बेटी के लिए 8.2% ब्याज — भारत की सबसे सुरक्षित ऊँची कमाई',
+  who:'10 साल से छोटी बेटी के माता-पिता। हर बेटी के लिए एक खाता (अधिकतम दो बेटियाँ)। बेटी की पढ़ाई और भविष्य के लिए यह सबसे अच्छी बचत योजना है।',
+  get:['<b>8.2% सालाना ब्याज</b> — किसी भी बैंक FD से ज़्यादा, पूरी सरकारी गारंटी','सिर्फ़ <b>₹250 साल</b> से शुरुआत; अधिकतम ₹1.5 लाख प्रति वर्ष','ब्याज और पूरी रकम <b>पूरी तरह टैक्स-फ़्री</b>','18 की उम्र के बाद पढ़ाई के लिए आंशिक निकासी की सुविधा','उदाहरण: 5 साल की उम्र से ₹1,000/महीना → 21 की उम्र तक लगभग <b>₹5.5 लाख</b>'],
+  steps:['बेटी के दस्तावेज़ लेकर किसी भी पोस्ट ऑफ़िस या बड़े बैंक जाइए।','"सुकन्या समृद्धि खाता खोलने का फ़ॉर्म" माँगिए।','खाताधारक बेटी, अभिभावक आप — इस तरह फ़ॉर्म भरिए।','शुरुआती रकम जमा कीजिए — ₹250 से भी शुरुआत हो जाती है।','पासबुक लीजिए। साल में कभी भी, कितनी भी रकम जमा कीजिए — ₹100 भी चलेगा।'],
+  docs:['बेटी का जन्म प्रमाणपत्र','माता/पिता का आधार + PAN','पते का प्रमाण','माता-पिता और बच्ची की पासपोर्ट फ़ोटो']}},
+{id:'pmjay',cat:'health',icon:'heart',col:'var(--coral)',soft:'var(--coral-soft)',link:'https://pmjay.gov.in',
+ en:{name:'Ayushman Bharat PM-JAY',tag:'₹5 lakh free health cover per family, per year',
+  who:'Low-income families identified through government data (SECC list). Many families are already eligible without knowing it — checking takes 2 minutes and is free.',
+  get:['<b>₹5 lakh per family per year</b> for hospital treatment','Completely <b>cashless</b> at 30,000+ empanelled hospitals (government and private)','Covers surgery, medicines, tests, ICU — even 3 days before and 15 days after hospitalisation','No limit on family size or age; pre-existing illnesses covered from day one'],
+  steps:['Check if your family is eligible: visit pmjay.gov.in and tap "Am I Eligible", or call the free helpline <b>14555</b>.','Enter your mobile number and ration card / Aadhaar details to check.','If eligible, visit the nearest empanelled hospital or Common Service Centre (CSC) with your documents.','Get your Ayushman card made there (free of cost).','Show this card at any empanelled hospital for cashless treatment. Never pay anyone to "make" this card — it is free.'],
+  docs:['Aadhaar card','Ration card','Mobile number']},
+ hi:{name:'आयुष्मान भारत PM-JAY',tag:'हर परिवार को साल में ₹5 लाख तक मुफ़्त इलाज',
+  who:'सरकारी सूची (SECC) में शामिल कम आय वाले परिवार। बहुत से परिवार पात्र हैं पर उन्हें पता ही नहीं — जाँचने में 2 मिनट लगते हैं और यह मुफ़्त है।',
+  get:['<b>हर परिवार को ₹5 लाख प्रति वर्ष</b> तक अस्पताल का इलाज','30,000+ सूचीबद्ध अस्पतालों में पूरी तरह <b>कैशलेस</b>','ऑपरेशन, दवाइयाँ, जाँच, ICU — भर्ती से 3 दिन पहले और 15 दिन बाद तक का खर्च भी','परिवार के सदस्यों या उम्र की कोई सीमा नहीं; पुरानी बीमारियाँ पहले दिन से कवर'],
+  steps:['पात्रता जाँचिए: pmjay.gov.in पर "Am I Eligible" खोलिए या मुफ़्त हेल्पलाइन <b>14555</b> पर कॉल कीजिए।','मोबाइल नंबर और राशन कार्ड / आधार की जानकारी डालिए।','पात्र हैं तो दस्तावेज़ लेकर नज़दीकी सूचीबद्ध अस्पताल या CSC केंद्र जाइए।','वहीं अपना आयुष्मान कार्ड बनवाइए (बिलकुल मुफ़्त)।','किसी भी सूचीबद्ध अस्पताल में यह कार्ड दिखाकर कैशलेस इलाज पाइए। कार्ड "बनवाने" के लिए किसी को पैसे मत दीजिए — यह मुफ़्त है।'],
+  docs:['आधार कार्ड','राशन कार्ड','मोबाइल नंबर']}},
+{id:'apy',cat:'pension',icon:'jar',col:'var(--blue)',soft:'var(--blue-soft)',link:'https://jansuraksha.gov.in',
+ en:{name:'Atal Pension Yojana',tag:'A guaranteed monthly pension from age 60 — for unorganised workers',
+  who:'Anyone aged 18 to 40 with a bank account, especially workers without a company pension — domestic workers, drivers, shopkeepers, daily-wage earners. The younger you start, the tinier the contribution.',
+  get:['Guaranteed pension of <b>₹1,000 to ₹5,000 every month</b> after age 60 — you choose the amount','Government guarantees the pension amount — zero market risk','After you, your spouse gets the same pension for life','Example: join at 25, pay about ₹376/month, get ₹5,000/month for life from 60'],
+  steps:['Go to your bank branch (or use the bank’s app if you use one).','Ask for the "Atal Pension Yojana form".','Choose your pension amount (₹1,000–₹5,000/month) — the form shows your monthly contribution.','Set up auto-debit so the contribution goes automatically every month.','You will get a PRAN number by SMS — that is your pension account. Done.'],
+  docs:['Aadhaar card','Bank account / passbook','Mobile number']},
+ hi:{name:'अटल पेंशन योजना',tag:'60 की उम्र से पक्की मासिक पेंशन — बिना कंपनी पेंशन वालों के लिए',
+  who:'18 से 40 साल का कोई भी खाताधारक, ख़ासकर वे जिन्हें कंपनी से पेंशन नहीं मिलेगी — घरेलू कामगार, ड्राइवर, दुकानदार, दिहाड़ी मज़दूर। जितनी कम उम्र में शुरू करेंगे, क़िस्त उतनी छोटी।',
+  get:['60 की उम्र के बाद <b>₹1,000 से ₹5,000 हर महीने</b> पक्की पेंशन — रकम आप चुनते हैं','पेंशन की सरकारी गारंटी — बाज़ार का कोई जोखिम नहीं','आपके बाद जीवनसाथी को आजीवन वही पेंशन','उदाहरण: 25 की उम्र में शुरू करें, लगभग ₹376/महीना भरें, 60 से ज़िंदगी भर ₹5,000/महीना पाएँ'],
+  steps:['अपनी बैंक शाखा जाइए (बैंक ऐप इस्तेमाल करते हैं तो वहाँ भी हो जाता है)।','"अटल पेंशन योजना का फ़ॉर्म" माँगिए।','पेंशन रकम चुनिए (₹1,000–₹5,000/महीना) — फ़ॉर्म में आपकी मासिक क़िस्त लिखी होती है।','ऑटो-डेबिट लगवाइए ताकि क़िस्त हर महीने अपने आप जाए।','SMS से PRAN नंबर मिलेगा — वही आपका पेंशन खाता है। बस।'],
+  docs:['आधार कार्ड','बैंक खाता / पासबुक','मोबाइल नंबर']}},
+{id:'nsp',cat:'education',icon:'book',col:'var(--green)',soft:'var(--green-soft)',link:'https://scholarships.gov.in',
+ en:{name:'National Scholarship Portal',tag:'One website, dozens of scholarships for your child’s education',
+  who:'Students from Class 1 to PhD — especially from low-income, SC/ST/OBC and minority families. Pre-matric, post-matric and merit scholarships, all on one government portal.',
+  get:['Scholarships ranging from <b>₹1,000 to ₹20,000+ per year</b> depending on the scheme','Money comes <b>directly to the student’s bank account</b> (DBT)','Covers tuition, books and sometimes hostel allowance','One application window every year, usually opening around July–October'],
+  steps:['Visit scholarships.gov.in and tap "New Registration" (it is free).','Register with the student’s Aadhaar, bank account and mobile number.','Log in and search schemes matching your state, class and category.','Fill the application and upload documents (photos of originals work).','Submit and note the application ID. The school/institute verifies it — follow up with them once.'],
+  docs:['Student’s Aadhaar','Bank passbook (student’s account)','Income certificate','Caste certificate (if applicable)','Previous marksheet','School/college ID']},
+ hi:{name:'नेशनल स्कॉलरशिप पोर्टल',tag:'एक वेबसाइट, बच्चों की पढ़ाई के लिए दर्जनों छात्रवृत्तियाँ',
+  who:'कक्षा 1 से PhD तक के विद्यार्थी — ख़ासकर कम आय वाले, SC/ST/OBC और अल्पसंख्यक परिवारों से। प्री-मैट्रिक, पोस्ट-मैट्रिक और मेरिट छात्रवृत्तियाँ, सब एक सरकारी पोर्टल पर।',
+  get:['योजना के हिसाब से <b>₹1,000 से ₹20,000+ प्रति वर्ष</b> तक की छात्रवृत्ति','पैसा <b>सीधे विद्यार्थी के बैंक खाते में</b> (DBT)','फ़ीस, किताबें और कभी-कभी हॉस्टल भत्ता भी','हर साल आवेदन का एक मौक़ा, ज़्यादातर जुलाई–अक्टूबर में'],
+  steps:['scholarships.gov.in खोलिए और "New Registration" पर जाइए (यह मुफ़्त है)।','विद्यार्थी के आधार, बैंक खाते और मोबाइल नंबर से रजिस्टर कीजिए।','लॉगिन करके अपने राज्य, कक्षा और श्रेणी की योजनाएँ खोजिए।','आवेदन भरिए और दस्तावेज़ अपलोड कीजिए (मूल दस्तावेज़ की फ़ोटो चलेगी)।','जमा करके एप्लिकेशन ID नोट कर लीजिए। स्कूल/कॉलेज सत्यापन करता है — एक बार वहाँ पूछताछ ज़रूर कीजिए।'],
+  docs:['विद्यार्थी का आधार','बैंक पासबुक (विद्यार्थी का खाता)','आय प्रमाणपत्र','जाति प्रमाणपत्र (अगर लागू हो)','पिछली मार्कशीट','स्कूल/कॉलेज ID']}}
+];
+/* ───────── LEARN ARTICLES (6) ───────── */
+const ARTICLES=[
+{id:'money',icon:'coin',col:'var(--yellow)',soft:'var(--yellow-soft)',mins:3,quiz:null,
+ en:{title:'What is money — and why barter failed',sum:'Before money, you traded goats for grain. Here’s why that stopped working.',
+  body:`<p>Imagine you grow rice and you need shoes. Without money, you must find a shoemaker who — at that exact moment — wants rice. If she wants milk instead, you're stuck. You'd have to find someone with milk who wants rice, trade for the milk, then carry it to the shoemaker. Exhausting!</p>
+<p>This problem has a name: the <b>double coincidence of wants</b>. Barter only works when two people each want exactly what the other has. As villages became towns, this became impossible to manage.</p>
+<p>So humans invented something clever: one thing that <b>everyone agrees to accept</b>. Shells, salt, silver coins — and today, paper notes and digital numbers in a bank. Money has no magic in itself; a ₹100 note is just paper. Its power comes from <b>trust</b> — everyone around you agrees it has value, so it does.</p>
+<p>That's all money is: a promise the whole society keeps together. Which is also why keeping it safe, growing it and using it wisely is a skill worth learning.</p>`,
+  fact:'The word "rupee" comes from the Sanskrit <b>rūpya</b> — meaning a beautifully shaped silver coin. India has been using the name for over 2,000 years!'},
+ hi:{title:'पैसा क्या है — और लेन-देन (बार्टर) क्यों फेल हुआ',sum:'पैसे से पहले लोग बकरी देकर अनाज लेते थे। वह तरीका क्यों नहीं चल पाया?',
+  body:`<p>सोचिए, आप चावल उगाते हैं और आपको जूते चाहिए। पैसे के बिना आपको ऐसा मोची ढूँढना होगा जिसे — ठीक उसी समय — चावल चाहिए। अगर उसे दूध चाहिए, तो आप फँस गए! पहले दूध वाले को ढूँढिए जो चावल ले, फिर दूध लेकर मोची के पास जाइए। कितनी मेहनत!</p>
+<p>इस दिक़्क़त का नाम है — <b>इच्छाओं का दोहरा संयोग</b>। बार्टर तभी चलता है जब दोनों को ठीक वही चाहिए जो दूसरे के पास है। गाँव जब शहर बने, तो यह नामुमकिन हो गया।</p>
+<p>तब इंसान ने एक समझदारी की चीज़ बनाई: एक ऐसी चीज़ जिसे <b>सब लोग लेने को तैयार हों</b>। कौड़ियाँ, नमक, चाँदी के सिक्के — और आज काग़ज़ के नोट और बैंक के डिजिटल नंबर। ₹100 का नोट असल में सिर्फ़ काग़ज़ है। उसकी ताक़त <b>भरोसे</b> से आती है — सब मानते हैं कि इसकी क़ीमत है, इसलिए है।</p>
+<p>पैसा बस इतना ही है: एक वादा जो पूरा समाज मिलकर निभाता है। इसीलिए उसे सँभालना, बढ़ाना और समझदारी से खर्च करना — सीखने लायक हुनर है।</p>`,
+  fact:'"रुपया" शब्द संस्कृत के <b>रूप्य</b> से आया है — यानी सुंदर गढ़ा हुआ चाँदी का सिक्का। भारत यह नाम 2,000 साल से भी ज़्यादा समय से इस्तेमाल कर रहा है!'}},
+{id:'bank',icon:'bag',col:'var(--green)',soft:'var(--green-soft)',mins:4,quiz:'banking',
+ en:{title:'How a bank actually works',sum:'Your money doesn’t sit in a locker. Here’s where it really goes — and why that’s good.',
+  body:`<p>Many people imagine the bank keeps their notes in a big locker with their name on it. The truth is more interesting: the bank <b>lends your money out</b>.</p>
+<p>When you deposit ₹1,000, the bank keeps a small part safe and lends the rest to someone else — a farmer buying seeds, a family building a house, a shopkeeper expanding. They pay the bank <b>interest</b> on that loan (say 10%). The bank shares a slice of it with you (say 3–6%) for trusting them with your money. The difference is how the bank earns.</p>
+<p>So a bank is really a <b>bridge between savers and borrowers</b> — your savings quietly help someone else's dream, and you earn for it.</p>
+<p><b>"But what if everyone asks for their money at once?"</b> Great question — banks must keep a portion in reserve by law, and the RBI (the bank of banks) watches over them. Deposits up to <b>₹5 lakh are insured by DICGC</b>, a government-backed guarantee. That's why money in a bank is far safer than cash at home — which can be lost, stolen, or quietly eaten by rising prices.</p>`,
+  fact:'Even money "sleeping" in a savings account earns interest — cash under the mattress earns nothing and loses value to inflation every single year.'},
+ hi:{title:'बैंक असल में कैसे काम करता है',sum:'आपका पैसा लॉकर में नहीं रखा रहता। जानिए वह कहाँ जाता है — और यह अच्छी बात क्यों है।',
+  body:`<p>बहुत लोग सोचते हैं कि बैंक उनके नोट किसी बड़े लॉकर में उनके नाम से रख देता है। सच ज़्यादा दिलचस्प है: बैंक आपका पैसा <b>आगे उधार दे देता है</b>।</p>
+<p>आप ₹1,000 जमा करते हैं, तो बैंक थोड़ा हिस्सा सुरक्षित रखकर बाक़ी किसी और को क़र्ज़ देता है — बीज ख़रीदते किसान को, घर बनाते परिवार को, दुकान बढ़ाते दुकानदार को। वे बैंक को <b>ब्याज</b> देते हैं (मान लीजिए 10%)। उसी में से एक हिस्सा (3–6%) बैंक आपको देता है — आपके भरोसे का इनाम। बीच का फ़र्क़ बैंक की कमाई है।</p>
+<p>यानी बैंक असल में <b>बचत करने वालों और ज़रूरतमंदों के बीच का पुल</b> है — आपकी बचत चुपचाप किसी का सपना पूरा करती है, और बदले में आप कमाते हैं।</p>
+<p><b>"पर सब एक साथ पैसा माँग लें तो?"</b> बढ़िया सवाल — क़ानूनन बैंक को एक हिस्सा हमेशा रिज़र्व रखना होता है, और RBI (बैंकों का बैंक) उन पर नज़र रखता है। <b>₹5 लाख तक की जमा पर DICGC की सरकारी गारंटी</b> होती है। इसीलिए बैंक का पैसा घर की नक़दी से कहीं ज़्यादा सुरक्षित है — घर की नक़दी खो सकती है, चोरी हो सकती है, और महँगाई उसे चुपचाप खाती रहती है।</p>`,
+  fact:'बचत खाते में "सोता" पैसा भी ब्याज कमाता है — गद्दे के नीचे रखी नक़दी कुछ नहीं कमाती और महँगाई से हर साल घटती जाती है।'}},
+{id:'compound',icon:'sprout',col:'var(--green)',soft:'var(--green-soft)',mins:3,quiz:'savings',
+ en:{title:'Compound interest: how small savings become big',sum:'₹100 a month can become ₹18,000+. The trick is interest earning interest.',
+  body:`<p>Simple idea, magical result: when your savings earn interest, and then <b>that interest also starts earning interest</b>, growth speeds up like a cycle rolling downhill. This is compounding.</p>
+<p>Watch ₹100 saved every month at 8% yearly interest:</p>
+<ul><li>After 1 year: ₹1,245 (you put in ₹1,200)</li><li>After 5 years: <b>₹7,348</b> (you put in ₹6,000)</li><li>After 10 years: <b>₹18,295</b> (you put in just ₹12,000)</li></ul>
+<p>You deposited ₹12,000 — compounding quietly added over <b>₹6,000 for free</b>. Stretch it to 20 years and your ₹24,000 becomes about ₹58,900. The money you didn't touch did the heavy lifting.</p>
+<p>Two rules fall out of this: <b>start early</b> (time matters more than amount) and <b>don't interrupt it</b> (every withdrawal restarts the slow part of the curve). A small amount saved young beats a big amount saved late — this is the closest thing to magic that maths offers.</p>`,
+  fact:'The "Rule of 72": divide 72 by the interest rate to know how many years your money takes to double. At 8%, money doubles every ~9 years!'},
+ hi:{title:'चक्रवृद्धि ब्याज: छोटी बचत बड़ी कैसे बनती है',sum:'₹100 महीना भी ₹18,000+ बन सकता है। राज़ है — ब्याज पर ब्याज।',
+  body:`<p>बात सीधी है, नतीजा जादुई: जब आपकी बचत ब्याज कमाती है, और फिर <b>वह ब्याज भी ब्याज कमाने लगता है</b>, तो बढ़त ढलान पर लुढ़कते पहिये जैसी तेज़ हो जाती है। इसी को चक्रवृद्धि (कंपाउंडिंग) कहते हैं।</p>
+<p>देखिए, हर महीने ₹100 की बचत, 8% सालाना ब्याज पर:</p>
+<ul><li>1 साल बाद: ₹1,245 (आपने डाले ₹1,200)</li><li>5 साल बाद: <b>₹7,348</b> (आपने डाले ₹6,000)</li><li>10 साल बाद: <b>₹18,295</b> (आपने डाले सिर्फ़ ₹12,000)</li></ul>
+<p>आपने जमा किए ₹12,000 — कंपाउंडिंग ने चुपचाप <b>₹6,000 से ज़्यादा मुफ़्त</b> जोड़ दिए। 20 साल तक चलाइए तो ₹24,000 की जमा लगभग ₹58,900 बन जाती है।</p>
+<p>इससे दो नियम निकलते हैं: <b>जल्दी शुरू कीजिए</b> (रकम से ज़्यादा समय मायने रखता है) और <b>बीच में मत रोकिए</b> (हर निकासी बढ़त को फिर धीमे हिस्से पर ले आती है)। कम उम्र की छोटी बचत, देर की बड़ी बचत को हरा देती है — गणित में जादू के सबसे क़रीब यही है।</p>`,
+  fact:'"72 का नियम": 72 को ब्याज दर से भाग दीजिए — उतने सालों में पैसा दोगुना। 8% पर पैसा हर ~9 साल में दोगुना होता है!'}},
+{id:'efund',icon:'jar',col:'var(--blue)',soft:'var(--blue-soft)',mins:4,quiz:'savings',
+ en:{title:'The emergency fund: why it changes everything',sum:'The single biggest difference between a family that survives a shock and one that sinks.',
+  body:`<p>Here is a hard truth: for most families, it's not the small expenses that cause disaster. It's the <b>sudden ones</b> — a hospital visit, a job gap, an urgent house repair. Without a cushion, families borrow at terrible interest rates (sometimes 3–5% <i>per month</i> from moneylenders), and one emergency becomes years of debt.</p>
+<p>An <b>emergency fund</b> is money kept aside that you never touch except in a true emergency. The target: <b>3 to 6 months of your household expenses</b>. If your family spends ₹12,000/month, aim for ₹36,000–₹72,000 over time.</p>
+<p>That sounds huge — so don't start there. Start with <b>one week of expenses</b>. Then one month. Keep it in a separate bank account (a Jan Dhan account works) so it doesn't mix with daily money.</p>
+<p>The deepest change isn't financial — it's mental. A family with a cushion makes decisions out of <b>choice</b>, not panic. They can say no to a bad loan, take two weeks to find a better job, pay a hospital deposit without selling jewellery. That calm is what you're really saving for.</p>`,
+  fact:'A moneylender charging "just 3% monthly" is actually charging over 42% a year — almost 7 times a bank loan. The emergency fund is your shield against ever needing one.'},
+ hi:{title:'इमरजेंसी फ़ंड: यह सब कुछ क्यों बदल देता है',sum:'मुसीबत में टिक जाने वाले और डूब जाने वाले परिवार के बीच का सबसे बड़ा फ़र्क़।',
+  body:`<p>एक कड़वा सच: ज़्यादातर परिवारों को छोटे खर्च नहीं डुबोते। डुबोते हैं <b>अचानक आने वाले खर्च</b> — अस्पताल, काम छूट जाना, घर की बड़ी मरम्मत। बिना तैयारी के परिवार भयानक ब्याज पर उधार लेते हैं (साहूकार से कभी-कभी 3–5% <i>हर महीने</i>), और एक मुसीबत सालों का क़र्ज़ बन जाती है।</p>
+<p><b>इमरजेंसी फ़ंड</b> वह पैसा है जो अलग रखा जाता है और सच्ची इमरजेंसी के अलावा कभी नहीं छुआ जाता। लक्ष्य: <b>घर के 3 से 6 महीने के खर्च जितना</b>। खर्च ₹12,000/महीना है तो धीरे-धीरे ₹36,000–₹72,000 तक पहुँचिए।</p>
+<p>सुनने में बहुत बड़ा लगता है — तो वहाँ से शुरू मत कीजिए। <b>एक हफ़्ते के खर्च</b> से शुरुआत कीजिए। फिर एक महीना। इसे अलग बैंक खाते में रखिए (जन धन खाता बढ़िया है) ताकि रोज़ के पैसे से न मिले।</p>
+<p>सबसे गहरा बदलाव पैसों का नहीं, मन का है। जिस परिवार के पास सहारा है, वह फ़ैसले <b>घबराहट से नहीं, सोच-समझकर</b> लेता है — बुरे क़र्ज़ को मना कर पाता है, बेहतर काम ढूँढने के लिए दो हफ़्ते रुक पाता है, गहने बेचे बिना अस्पताल का डिपॉज़िट भर पाता है। असल में आप उसी सुकून के लिए बचा रहे हैं।</p>`,
+  fact:'"सिर्फ़ 3% महीना" लेने वाला साहूकार असल में साल का 42% से ज़्यादा ब्याज ले रहा है — बैंक से लगभग 7 गुना। इमरजेंसी फ़ंड वही ढाल है जो आपको कभी वहाँ जाने ही नहीं देता।'}},
+{id:'upi',icon:'phone',col:'var(--blue)',soft:'var(--blue-soft)',mins:3,quiz:'digital',
+ en:{title:'UPI, NEFT, IMPS, RTGS — in plain language',sum:'Four confusing names, one simple cheat-sheet.',
+  body:`<p>All four move money between bank accounts. The difference is speed, size and how you use them:</p>
+<ul>
+<li><b>UPI</b> — the one you use daily. Scan a QR or use a phone number, money moves <b>instantly, 24×7, free</b>. Perfect for shops, autos, friends. Limit usually ₹1 lakh/day.</li>
+<li><b>IMPS</b> — UPI's older sibling. Instant, 24×7, works with account number + IFSC. Useful when someone has no UPI. Small fee possible.</li>
+<li><b>NEFT</b> — the patient postman. Sends any amount in batches (within ~2 hours), 24×7. Good for rent or fees when speed doesn't matter. Free in net-banking.</li>
+<li><b>RTGS</b> — the heavy-duty truck. For <b>₹2 lakh and above</b>, settles immediately, one transaction at a time. Used for property, business payments.</li>
+</ul>
+<p>Simple rule for daily life: <b>small & instant → UPI; no-UPI person → IMPS; big & relaxed → NEFT; very big → RTGS.</b></p>
+<p>One thing to remember forever: you need your UPI PIN only to <b>send</b> money. Anyone asking you to enter a PIN to <i>receive</i> money is running a scam.</p>`,
+  fact:'India’s UPI processes over 13 billion transactions a month — more digital payments than the USA, UK and Europe combined.'},
+ hi:{title:'UPI, NEFT, IMPS, RTGS — आसान भाषा में',sum:'चार उलझाने वाले नाम, एक आसान चीट-शीट।',
+  body:`<p>चारों का काम एक ही है — एक खाते से दूसरे खाते में पैसा भेजना। फ़र्क़ है रफ़्तार, रकम और इस्तेमाल का:</p>
+<ul>
+<li><b>UPI</b> — जो आप रोज़ इस्तेमाल करते हैं। QR स्कैन कीजिए या फ़ोन नंबर डालिए, पैसा <b>तुरंत, 24×7, मुफ़्त</b> पहुँचता है। दुकान, ऑटो, दोस्त — सबके लिए। सीमा आमतौर पर ₹1 लाख/दिन।</li>
+<li><b>IMPS</b> — UPI का बड़ा भाई। तुरंत, 24×7, खाता नंबर + IFSC से चलता है। जिसके पास UPI नहीं है, उसके लिए। छोटा शुल्क लग सकता है।</li>
+<li><b>NEFT</b> — सब्र वाला डाकिया। कोई भी रकम, बैचों में (~2 घंटे के भीतर), 24×7। किराया या फ़ीस जैसे आराम वाले कामों के लिए। नेट-बैंकिंग में मुफ़्त।</li>
+<li><b>RTGS</b> — भारी-भरकम ट्रक। <b>₹2 लाख और उससे ऊपर</b> के लिए, तुरंत और अकेले-अकेले निपटता है। ज़मीन-जायदाद, बिज़नेस के लिए।</li>
+</ul>
+<p>रोज़ की ज़िंदगी का नियम: <b>छोटा और तुरंत → UPI; बिना-UPI वाला → IMPS; बड़ा और आराम से → NEFT; बहुत बड़ा → RTGS।</b></p>
+<p>एक बात हमेशा याद रखिए: UPI PIN सिर्फ़ पैसा <b>भेजने</b> के लिए चाहिए। पैसा <i>पाने</i> के लिए PIN माँगने वाला हर आदमी ठग है।</p>`,
+  fact:'भारत का UPI महीने में 13 अरब से ज़्यादा लेन-देन करता है — अमेरिका, ब्रिटेन और यूरोप के कुल डिजिटल भुगतान से भी ज़्यादा।'}},
+{id:'scams',icon:'shield',col:'var(--coral)',soft:'var(--coral-soft)',mins:4,quiz:'digital',
+ en:{title:'How to spot and escape digital scams',sum:'Scammers don’t hack phones — they hack feelings. Learn their 4 tricks.',
+  body:`<p>Almost every digital scam uses one of four feelings: <b>fear</b> ("your account will be blocked!"), <b>greed</b> ("you won ₹25 lakh!"), <b>urgency</b> ("only 10 minutes left!") or <b>trust</b> ("I'm calling from your bank"). The moment a message makes your heart beat faster — pause. That feeling is the weapon.</p>
+<p>The golden rules:</p>
+<ul>
+<li><b>OTP and PIN are like your toothbrush</b> — never shared with anyone, not even "bank officers". Real banks never ask.</li>
+<li><b>You never need a PIN/OTP to receive money.</b> "Enter PIN to get your refund/prize" = 100% scam.</li>
+<li><b>Don't tap links in SMS/WhatsApp</b> about KYC, lottery, electricity cut-offs. Open the official app or call the number on the back of your card instead.</li>
+<li><b>Video-call "police officers" demanding money ("digital arrest") are fake.</b> Police never arrest people over video calls. Hang up.</li>
+</ul>
+<p>If money does get taken: act fast. Call <b>1930</b> (the national cyber-fraud helpline) immediately and report at cybercrime.gov.in — reporting within the first hour gives the best chance of freezing the money. There is no shame in being targeted; there is only power in reporting it.</p>`,
+  fact:'Reporting fraud to 1930 within the first "golden hour" lets banks freeze the money mid-transfer — thousands of crores have been saved this way.'},
+ hi:{title:'डिजिटल ठगी पहचानिए और बचिए',sum:'ठग फ़ोन नहीं हैक करते — भावनाएँ हैक करते हैं। उनकी 4 चालें जानिए।',
+  body:`<p>लगभग हर डिजिटल ठगी चार भावनाओं में से एक का इस्तेमाल करती है: <b>डर</b> ("आपका खाता बंद हो जाएगा!"), <b>लालच</b> ("आपने ₹25 लाख जीते!"), <b>जल्दबाज़ी</b> ("सिर्फ़ 10 मिनट बचे!") या <b>भरोसा</b> ("मैं आपके बैंक से बोल रहा हूँ")। जिस पल कोई मैसेज दिल की धड़कन तेज़ कर दे — रुक जाइए। वही एहसास ठग का हथियार है।</p>
+<p>सुनहरे नियम:</p>
+<ul>
+<li><b>OTP और PIN आपके टूथब्रश जैसे हैं</b> — किसी से साझा नहीं होते, "बैंक अधिकारी" से भी नहीं। असली बैंक कभी नहीं माँगते।</li>
+<li><b>पैसा पाने के लिए कभी PIN/OTP नहीं लगता।</b> "रिफ़ंड/इनाम पाने के लिए PIN डालिए" = 100% ठगी।</li>
+<li><b>SMS/WhatsApp के लिंक मत खोलिए</b> — KYC, लॉटरी, बिजली कटने वाले। उसकी जगह असली ऐप खोलिए या कार्ड के पीछे लिखे नंबर पर कॉल कीजिए।</li>
+<li><b>वीडियो कॉल पर पैसा माँगने वाले "पुलिस वाले" ("डिजिटल अरेस्ट") नक़ली हैं।</b> पुलिस वीडियो कॉल पर गिरफ़्तारी नहीं करती। फ़ोन काट दीजिए।</li>
+</ul>
+<p>अगर पैसा चला ही जाए: फुर्ती कीजिए। तुरंत <b>1930</b> (राष्ट्रीय साइबर-फ़्रॉड हेल्पलाइन) पर कॉल कीजिए और cybercrime.gov.in पर शिकायत कीजिए — पहले घंटे में शिकायत करने पर पैसा रोकने की संभावना सबसे ज़्यादा होती है। ठगी का निशाना बनने में कोई शर्म नहीं; ताक़त शिकायत करने में है।</p>`,
+  fact:'पहले "सुनहरे घंटे" में 1930 पर शिकायत करने से बैंक पैसा रास्ते में ही रोक सकते हैं — इसी तरीके से हज़ारों करोड़ बचाए जा चुके हैं।'}}
+];
+/* ───────── BUDGET: methods + stories ───────── */
+const METHODS=[
+{id:'envelope',icon:'bag',col:'var(--yellow)',soft:'var(--yellow-soft)',mins:3,
+ en:{title:'The Envelope Method — perfect for cash households',sum:'Old-school, powerful, and made for families paid in cash.',
+  body:`<p>If your household runs on cash, this method is your best friend. On the day money comes in, divide it into <b>labelled envelopes</b>: Rent, Ration, School, Travel, Light Bill, Savings, and one small envelope for Joy (yes — fun is a category, not a sin).</p>
+<p>The rule is simple and strict: <b>each expense comes only from its own envelope</b>. When the Ration envelope is empty, ration spending stops until next month — you don't borrow from the Rent envelope.</p>
+<p>Why it works: cash in envelopes makes money <b>visible and finite</b>. A UPI balance is an abstract number; a thinning envelope is something the whole family can see and feel. Studies consistently show people spend 12–18% less when they spend physical cash.</p>
+<p>Three tips: fill the <b>Savings envelope first</b> (even ₹200), not last. Keep envelopes somewhere safe but visible. And involve the kids — let them guard the School envelope. They learn budgeting before they learn algebra.</p>`,
+  fact:'Fill the Savings envelope FIRST, not with what is "left over". There is never anything left over — that is the oldest budgeting truth in the world.'},
+ hi:{title:'लिफ़ाफ़ा तरीका — नक़द कमाई वाले घरों के लिए',sum:'पुराना, दमदार, और कैश में चलने वाले परिवारों के लिए ही बना।',
+  body:`<p>अगर आपका घर नक़द पर चलता है, तो यह तरीका आपका सबसे अच्छा दोस्त है। जिस दिन पैसा आए, उसे <b>नाम लिखे लिफ़ाफ़ों</b> में बाँट दीजिए: किराया, राशन, स्कूल, सफ़र, बिजली बिल, बचत — और एक छोटा लिफ़ाफ़ा ख़ुशी के लिए (हाँ — मज़ा भी एक श्रेणी है, गुनाह नहीं)।</p>
+<p>नियम सीधा और सख़्त: <b>हर खर्च सिर्फ़ अपने लिफ़ाफ़े से</b>। राशन का लिफ़ाफ़ा ख़ाली, तो अगले महीने तक राशन का खर्च बंद — किराये के लिफ़ाफ़े से उधार नहीं।</p>
+<p>यह काम क्यों करता है: लिफ़ाफ़े का पैसा <b>दिखता है और सीमित लगता है</b>। UPI का बैलेंस एक हवाई नंबर है; पतला होता लिफ़ाफ़ा पूरा परिवार देख और महसूस कर सकता है। शोध बताते हैं कि नक़द खर्च करने पर लोग 12–18% कम खर्च करते हैं।</p>
+<p>तीन सुझाव: <b>सबसे पहले बचत का लिफ़ाफ़ा</b> भरिए (₹200 ही सही), सबसे आख़िर में नहीं। लिफ़ाफ़े सुरक्षित पर दिखने वाली जगह रखिए। और बच्चों को जोड़िए — स्कूल का लिफ़ाफ़ा उनके हवाले कीजिए। वे अलजेब्रा से पहले बजट सीख जाएँगे।</p>`,
+  fact:'बचत का लिफ़ाफ़ा सबसे पहले भरिए, "जो बचेगा उससे" नहीं। कुछ कभी नहीं बचता — यह दुनिया का सबसे पुराना बजट-सच है।'}},
+{id:'zerobased',icon:'bulb',col:'var(--blue)',soft:'var(--blue-soft)',mins:3,
+ en:{title:'Zero-Based Budgeting — every rupee gets a job',sum:'For families who want full control: income minus plans equals zero.',
+  body:`<p>Zero-based budgeting has one beautiful rule: <b>income − every planned rupee = 0</b>. Before the month begins, every single rupee is assigned a job — ₹6,000 to rent, ₹4,000 to food, ₹1,500 to savings, ₹300 to mobile recharge… until nothing is unassigned.</p>
+<p>"Zero" doesn't mean you spend everything — savings is a job too, often the first one. It means <b>no rupee wanders around jobless</b>, because jobless rupees are the ones that disappear into small, forgettable spending.</p>
+<p>How to start: take last month's actual spending (check your UPI history — it's a ready-made diary). Write every category and give next month's rupees their jobs. Mid-month, if one category overflows, you must consciously <b>move money from another job</b> — that conscious choice is the whole discipline.</p>
+<p>It takes 30 minutes a month, one notebook page or one phone note. In exchange, the most common money feeling — "where did it all go?" — disappears completely. You'll know exactly where it went, because you sent it there.</p>`,
+  fact:'UPI history is a free, automatic spending diary. Most families who check a full month of it find at least one ₹500+ surprise they had no idea about.'},
+ hi:{title:'ज़ीरो-बेस्ड बजट — हर रुपये को एक काम',sum:'पूरा हिसाब चाहने वालों के लिए: कमाई घटा योजना बराबर शून्य।',
+  body:`<p>ज़ीरो-बेस्ड बजट का एक सुंदर नियम है: <b>कमाई − हर योजना वाला रुपया = 0</b>। महीना शुरू होने से पहले हर एक रुपये को काम दे दीजिए — ₹6,000 किराये को, ₹4,000 राशन को, ₹1,500 बचत को, ₹300 रिचार्ज को… जब तक कोई रुपया बिना काम का न बचे।</p>
+<p>"ज़ीरो" का मतलब सब खर्च कर देना नहीं — बचत भी एक काम है, अक्सर सबसे पहला। मतलब यह है कि <b>कोई रुपया बेरोज़गार न घूमे</b>, क्योंकि बेरोज़गार रुपये ही छोटे-छोटे भूल जाने वाले खर्चों में ग़ायब होते हैं।</p>
+<p>शुरुआत ऐसे: पिछले महीने का असली खर्च देखिए (UPI हिस्ट्री तैयार डायरी है)। हर श्रेणी लिखिए और अगले महीने के रुपयों को काम बाँट दीजिए। महीने के बीच में कोई श्रेणी बढ़ जाए, तो जान-बूझकर <b>दूसरे काम से पैसा हटाकर</b> देना होगा — वही सोचा-समझा फ़ैसला असली अनुशासन है।</p>
+<p>महीने में 30 मिनट, एक कॉपी का पन्ना या फ़ोन का एक नोट। बदले में पैसों की सबसे आम बेचैनी — "सब गया कहाँ?" — हमेशा के लिए ख़त्म। आपको ठीक-ठीक पता होगा कहाँ गया, क्योंकि आपने ही भेजा था।</p>`,
+  fact:'UPI हिस्ट्री एक मुफ़्त, अपने आप बनने वाली खर्च-डायरी है। पूरा एक महीना जाँचने वाले ज़्यादातर परिवारों को कम-से-कम एक ₹500+ का अनजाना खर्च ज़रूर मिलता है।'}},
+{id:'irregular',icon:'arrow',col:'var(--green)',soft:'var(--green-soft)',mins:4,
+ en:{title:'Budgeting on irregular income',sum:'Daily wages, seasonal work, good months and bad — here’s the system.',
+  body:`<p>Most budgeting advice assumes a fixed salary on the 1st. But what if you earn daily, or some months are double and some are half? You need a different system — one built on <b>your worst month, not your best</b>.</p>
+<p><b>Step 1 — find your floor.</b> Look at your last 6 months and find the lowest month's income. That number is your "floor". Build your basic monthly budget (needs only) to fit inside the floor.</p>
+<p><b>Step 2 — pay yourself a salary.</b> In good months, don't let the extra sit in your pocket. Move it into a separate "buffer" account, then pay yourself the same fixed amount every month from it. You become your own salary-giver.</p>
+<p><b>Step 3 — the daily skim.</b> If you're paid daily, skim a fixed small slice <b>every single day</b> — even ₹20–₹50 — into a jar or the buffer account before anything else. On a ₹500 day and on a ₹900 day, the skim happens first.</p>
+<p>Good months will tempt you to upgrade your life. Resist upgrading your <b>needs</b>; let good months upgrade your <b>buffer</b>. The buffer is what turns an irregular income into a calm, regular life.</p>`,
+  fact:'A daily skim of just ₹30 becomes almost ₹11,000 in a year — an emergency fund built from money you barely notice missing.'},
+ hi:{title:'घटती-बढ़ती कमाई में बजट कैसे बनाएँ',sum:'दिहाड़ी, सीज़न का काम, अच्छे-बुरे महीने — यह रहा पूरा सिस्टम।',
+  body:`<p>बजट की ज़्यादातर सलाह मानकर चलती है कि 1 तारीख़ को बँधी तनख़्वाह आएगी। पर अगर कमाई रोज़ की है, या कोई महीना दुगना और कोई आधा? तब अलग सिस्टम चाहिए — जो <b>आपके सबसे कमज़ोर महीने पर टिका हो, सबसे अच्छे पर नहीं</b>।</p>
+<p><b>स्टेप 1 — अपनी ज़मीन ढूँढिए।</b> पिछले 6 महीने देखिए और सबसे कम कमाई वाला महीना पकड़िए। वही आपकी "ज़मीन" है। घर का बुनियादी बजट (सिर्फ़ ज़रूरतें) इसी के अंदर बनाइए।</p>
+<p><b>स्टेप 2 — ख़ुद को तनख़्वाह दीजिए।</b> अच्छे महीनों की बढ़त जेब में मत रहने दीजिए। उसे अलग "बफ़र" खाते में डालिए, और हर महीने उसी से ख़ुद को एक बँधी रकम दीजिए। अपनी तनख़्वाह देने वाले ख़ुद बनिए।</p>
+<p><b>स्टेप 3 — रोज़ की कतरन।</b> कमाई रोज़ मिलती है तो <b>हर दिन</b> एक छोटा बँधा हिस्सा — ₹20–₹50 ही सही — सबसे पहले गुल्लक या बफ़र खाते में डालिए। ₹500 वाले दिन भी, ₹900 वाले दिन भी — कतरन पहले।</p>
+<p>अच्छे महीने ज़िंदगी बड़ी करने का लालच देंगे। <b>ज़रूरतें</b> मत बढ़ाइए; अच्छे महीनों से <b>बफ़र</b> बढ़ाइए। वही बफ़र घटती-बढ़ती कमाई को सुकून भरी, बँधी ज़िंदगी में बदल देता है।</p>`,
+  fact:'रोज़ सिर्फ़ ₹30 की कतरन साल में लगभग ₹11,000 बन जाती है — ऐसा इमरजेंसी फ़ंड जो उस पैसे से बना जिसकी कमी महसूस ही नहीं हुई।'}}
+];
+const STORIES=[
+{id:'sita',icon:'star',col:'var(--coral)',soft:'var(--coral-soft)',
+ en:{name:'Sita · Pune',title:'₹40,000 saved in 8 months — on a ₹18,000 income',
+  body:`<p>Sita works as a cook in four houses in Pune and brings home about ₹18,000 a month. For years, the month ended with nothing left — sometimes less than nothing.</p>
+<p>After a budgeting workshop, she tried the 50-30-20 split with one change: she made it <b>55-25-20</b>, because rent in Pune is brutal. On the 1st of every month, ₹3,600 went into a separate Jan Dhan account <b>before anything else</b> — her "don't touch" account.</p>
+<p>The first two months were hard. She says the trick that saved her: a 24-hour wait rule on every want above ₹300. "Half the time, next morning I didn't want it anymore."</p>
+<p>In 8 months she had ₹28,800 saved from the salary cuts, plus ₹11,000 from festival bonuses she banked instead of spending — <b>₹40,000 total</b>. When her son needed a hospital stay, she paid the deposit herself, no moneylender. "That day," she says, "the envelope felt like a wall around my family."</p>`},
+ hi:{name:'सीता · पुणे',title:'₹18,000 की कमाई पर 8 महीने में ₹40,000 की बचत',
+  body:`<p>सीता पुणे में चार घरों में खाना बनाती हैं और महीने में क़रीब ₹18,000 कमाती हैं। सालों तक महीना ख़त्म होते-होते कुछ नहीं बचता था — कभी-कभी तो उल्टा उधार चढ़ जाता था।</p>
+<p>एक बजट वर्कशॉप के बाद उन्होंने 50-30-20 आज़माया, एक बदलाव के साथ: उन्होंने इसे <b>55-25-20</b> बनाया, क्योंकि पुणे का किराया बेरहम है। हर महीने की 1 तारीख़ को ₹3,600 <b>सबसे पहले</b> अलग जन धन खाते में जाते — उनका "हाथ नहीं लगाना" खाता।</p>
+<p>पहले दो महीने मुश्किल थे। वे बताती हैं कि किस तरकीब ने बचाया: ₹300 से ऊपर की हर इच्छा पर 24 घंटे रुकने का नियम। "आधी बार तो अगली सुबह वह चीज़ चाहिए ही नहीं होती थी।"</p>
+<p>8 महीनों में तनख़्वाह की कटौती से ₹28,800 जमा हुए, और त्योहार के बोनस के ₹11,000 जो खर्चने की जगह बैंक गए — <b>कुल ₹40,000</b>। जब बेटे को अस्पताल में भर्ती करना पड़ा, तो डिपॉज़िट उन्होंने ख़ुद भरा — कोई साहूकार नहीं। वे कहती हैं, "उस दिन लगा, यह बचत मेरे परिवार के चारों ओर एक दीवार है।"</p>`}},
+{id:'ahmed',icon:'sprout',col:'var(--green)',soft:'var(--green-soft)',
+ en:{name:'Ahmed · Nagpur',title:'An emergency fund built on daily wages',
+  body:`<p>Ahmed does electrical work in Nagpur. Some days he earns ₹700, some days ₹250, some days nothing. "How can I budget when I don't know Tuesday's income?" he used to ask.</p>
+<p>The envelope method, adapted for daily earners, changed it. Every evening — no matter what the day brought — the first ₹40 went into a locked tin. Not the last ₹40. The <b>first</b>. Then four envelopes: ration, room, transport, and one for tools.</p>
+<p>On good days, anything above ₹600 was split — half to the tin, half to a "lean day" envelope that fed the family on no-work days, so bad days stopped becoming debt days.</p>
+<p>In 14 months the tin and his new bank account held <b>over ₹15,000</b>. When the monsoon flooded his room and ruined his tools, he replaced them in two days and was back earning — no loan, no lost month. "The tin is small," he says, "but it made me the calmest man on bad days."</p>`},
+ hi:{name:'अहमद · नागपुर',title:'दिहाड़ी की कमाई पर खड़ा हुआ इमरजेंसी फ़ंड',
+  body:`<p>अहमद नागपुर में बिजली का काम करते हैं। किसी दिन ₹700, किसी दिन ₹250, किसी दिन कुछ नहीं। पहले पूछते थे — "जब मंगलवार की कमाई का ही पता नहीं, तो बजट कैसे बनाऊँ?"</p>
+<p>दिहाड़ी वालों के लिए ढाला गया लिफ़ाफ़ा तरीका सब बदल गया। हर शाम — दिन कैसा भी रहा हो — पहले ₹40 एक बंद डिब्बे में जाते। आख़िरी ₹40 नहीं। <b>पहले</b> ₹40। फिर चार लिफ़ाफ़े: राशन, कमरा, सफ़र, और एक औज़ारों के लिए।</p>
+<p>अच्छे दिनों में ₹600 से ऊपर की कमाई आधी-आधी बँटती — आधी डिब्बे में, आधी "मंदे दिन" वाले लिफ़ाफ़े में, जो बिना काम वाले दिनों में घर चलाता। इस तरह बुरे दिन क़र्ज़ के दिन बनने बंद हो गए।</p>
+<p>14 महीनों में डिब्बे और नए बैंक खाते में <b>₹15,000 से ज़्यादा</b> जमा थे। बरसात में कमरे में पानी भरा और औज़ार ख़राब हो गए, तो दो दिन में नए औज़ार लेकर वे फिर काम पर थे — न क़र्ज़, न महीना बर्बाद। कहते हैं, "डिब्बा छोटा है, पर बुरे दिनों में सबसे शांत आदमी मैं ही होता हूँ।"</p>`}}
+];
+/* ───────── QUIZZES (4) ───────── */
+const QUIZZES=[
+{id:'needs',session:1,icon:'star',col:'var(--yellow)',soft:'var(--yellow-soft)',
+ en:{title:'Needs vs Wants',desc:'Can you tell what a family truly needs from what it merely wants?',insightHi:'You nailed needs vs wants — try the Banking Basics quiz next!',insightLo:'Tip: re-read "What is money" in Learn, then come back stronger!'},
+ hi:{title:'ज़रूरत बनाम इच्छा',desc:'क्या आप पहचान सकते हैं कि परिवार को सच में क्या चाहिए और क्या सिर्फ़ मन करता है?',insightHi:'ज़रूरत-इच्छा आपने पक्का कर लिया — अब बैंकिंग बेसिक्स खेलिए!',insightLo:'सुझाव: "सीखें" में "पैसा क्या है" पढ़िए, फिर दोबारा आइए!'},
+ mcq:[
+  {a:0,en:{q:'Which of these is a NEED?',o:['School books','A new video game','A movie ticket','Chocolates']},hi:{q:'इनमें से ज़रूरत कौन सी है?',o:['स्कूल की किताबें','नया वीडियो गेम','सिनेमा का टिकट','चॉकलेट']}},
+  {a:1,en:{q:'A family earns ₹15,000 a month. What gets paid FIRST?',o:['A new phone','Rent and ration','Festival clothes','A bigger TV']},hi:{q:'एक परिवार ₹15,000 कमाता है। सबसे पहले किसका नंबर?',o:['नया फ़ोन','किराया और राशन','त्योहार के कपड़े','बड़ा टीवी']}},
+  {a:2,en:{q:'"Wants" are best described as…',o:['Things that are always bad','Things needed to survive','Things that are nice to have','Things that are free']},hi:{q:'"इच्छाएँ" किसे कहते हैं?',o:['जो चीज़ें हमेशा बुरी हों','जो जीने के लिए ज़रूरी हों','जो मिलें तो अच्छा लगे','जो मुफ़्त हों']}},
+  {a:0,en:{q:'Which is a WANT dressed up as a need?',o:['The latest phone when the old one works','Medicine for fever','School fees','Vegetables for dinner']},hi:{q:'कौन सी इच्छा, ज़रूरत का नक़ाब पहनकर आई है?',o:['पुराना फ़ोन चलते हुए भी नया फ़ोन','बुख़ार की दवा','स्कूल की फ़ीस','रात के खाने की सब्ज़ी']}},
+  {a:0,en:{q:'Money is short this month. What do you cut first?',o:['Wants','Needs','Savings','Nothing — borrow instead']},hi:{q:'इस महीने पैसा कम है। सबसे पहले क्या घटाएँगे?',o:['इच्छाएँ','ज़रूरतें','बचत','कुछ नहीं — उधार लेंगे']}}],
+ flash:[
+  {en:{f:'NEED',b:'Something your family must have to live safely — food, home, medicine, education.'},hi:{f:'ज़रूरत',b:'जो परिवार के सुरक्षित जीवन के लिए चाहिए ही — खाना, घर, दवा, पढ़ाई।'}},
+  {en:{f:'WANT',b:'Something that adds joy but life goes on without it — treats, gadgets, outings.'},hi:{f:'इच्छा',b:'जो ख़ुशी देती है पर उसके बिना भी काम चलता है — मिठाई, गैजेट, घूमना।'}},
+  {en:{f:'The 24-hour rule',b:'Wait one full day before buying any want. Half the time, the wish quietly disappears!'},hi:{f:'24 घंटे का नियम',b:'किसी भी इच्छा को ख़रीदने से पहले पूरा एक दिन रुकिए। आधी बार मन अपने आप बदल जाता है!'}}],
+ tot:[
+  {c:'a',en:{q:'Electricity bill',a:'Need',b:'Want'},hi:{q:'बिजली का बिल',a:'ज़रूरत',b:'इच्छा'}},
+  {c:'b',en:{q:'Ice cream after dinner',a:'Need',b:'Want'},hi:{q:'खाने के बाद आइसक्रीम',a:'ज़रूरत',b:'इच्छा'}},
+  {c:'a',en:{q:'School uniform',a:'Need',b:'Want'},hi:{q:'स्कूल यूनिफ़ॉर्म',a:'ज़रूरत',b:'इच्छा'}},
+  {c:'b',en:{q:'Bluetooth speaker',a:'Need',b:'Want'},hi:{q:'ब्लूटूथ स्पीकर',a:'ज़रूरत',b:'इच्छा'}}]},
+{id:'banking',session:2,icon:'bag',col:'var(--green)',soft:'var(--green-soft)',
+ en:{title:'Banking Basics',desc:'Accounts, interest, ATMs — how well do you know your bank?',insightHi:'Bank-level brilliance! The Savings & Budgeting quiz awaits.',insightLo:'Read "How a bank actually works" in Learn — it makes this quiz easy!'},
+ hi:{title:'बैंकिंग बेसिक्स',desc:'खाता, ब्याज, ATM — आप अपने बैंक को कितना जानते हैं?',insightHi:'बैंक-स्तर की समझ! अब बचत और बजट वाली क्विज़ आपका इंतज़ार कर रही है।',insightLo:'"सीखें" में "बैंक कैसे काम करता है" पढ़िए — फिर यह क्विज़ आसान लगेगी!'},
+ mcq:[
+  {a:1,en:{q:'What does a bank mostly do with the money you deposit?',o:['Keeps it in a locker with your name','Lends it to others and earns interest','Spends it on its offices','Sends it to the government']},hi:{q:'आपके जमा पैसे का बैंक ज़्यादातर क्या करता है?',o:['आपके नाम के लॉकर में रखता है','दूसरों को उधार देकर ब्याज कमाता है','अपने दफ़्तरों पर खर्च करता है','सरकार को भेज देता है']}},
+  {a:0,en:{q:'Interest on your savings account is…',o:['Money the bank pays YOU for keeping money there','A fee you pay the bank','A government tax','A fine for low balance']},hi:{q:'बचत खाते पर मिलने वाला ब्याज क्या है?',o:['पैसा रखने के बदले बैंक आपको देता है','आप बैंक को देते हैं','सरकारी टैक्स','कम बैलेंस का जुर्माना']}},
+  {a:2,en:{q:'Which account needs NO minimum balance at all?',o:['Current account','Fixed deposit','Jan Dhan account','Locker account']},hi:{q:'किस खाते में मिनिमम बैलेंस बिलकुल नहीं चाहिए?',o:['करंट खाता','फ़िक्स्ड डिपॉज़िट','जन धन खाता','लॉकर खाता']}},
+  {a:3,en:{q:'Who should you share your ATM PIN with?',o:['Bank manager','Family only','Police if they ask','No one, ever']},hi:{q:'ATM PIN किसे बताना चाहिए?',o:['बैंक मैनेजर को','सिर्फ़ परिवार को','पुलिस पूछे तो','कभी, किसी को नहीं']}},
+  {a:1,en:{q:'Bank deposits up to ₹5 lakh are protected by…',o:['Your employer','DICGC government-backed insurance','The bank’s promise only','Nothing at all']},hi:{q:'₹5 लाख तक की बैंक जमा किससे सुरक्षित है?',o:['आपके मालिक से','DICGC की सरकारी गारंटी से','सिर्फ़ बैंक के वादे से','किसी से नहीं']}}],
+ flash:[
+  {en:{f:'DEPOSIT',b:'Putting money INTO your account. Your balance goes up.'},hi:{f:'जमा (डिपॉज़िट)',b:'खाते में पैसा डालना। बैलेंस बढ़ता है।'}},
+  {en:{f:'WITHDRAW',b:'Taking money OUT of your account — at an ATM or the branch.'},hi:{f:'निकासी',b:'खाते से पैसा निकालना — ATM या शाखा से।'}},
+  {en:{f:'IFSC CODE',b:'A short code that identifies your exact bank branch — needed for transfers like NEFT.'},hi:{f:'IFSC कोड',b:'आपकी बैंक शाखा की पहचान बताने वाला छोटा कोड — NEFT जैसे ट्रांसफ़र में लगता है।'}}],
+ tot:[
+  {c:'a',en:{q:'Where is money SAFER?',a:'In a bank',b:'Under the mattress'},hi:{q:'पैसा कहाँ ज़्यादा सुरक्षित है?',a:'बैंक में',b:'गद्दे के नीचे'}},
+  {c:'b',en:{q:'Writing your PIN on the ATM card is…',a:'Smart',b:'Risky'},hi:{q:'ATM कार्ड पर PIN लिखना…',a:'समझदारी',b:'ख़तरनाक'}},
+  {c:'a',en:{q:'A passbook shows…',a:'All your transactions',b:'Your neighbour’s balance'},hi:{q:'पासबुक में दिखता है…',a:'आपका सारा लेन-देन',b:'पड़ोसी का बैलेंस'}},
+  {c:'b',en:{q:'"Bank officer" calls asking your OTP…',a:'Help him',b:'Hang up — it’s a scam'},hi:{q:'"बैंक अधिकारी" फ़ोन पर OTP माँगे तो…',a:'बता दीजिए',b:'फ़ोन काटिए — ठगी है'}}]},
+{id:'savings',session:3,icon:'jar',col:'var(--blue)',soft:'var(--blue-soft)',
+ en:{title:'Savings & Budgeting',desc:'50-30-20, emergency funds and the magic of compounding.',insightHi:'You’re a savings star! Try the Digital Safety quiz next.',insightLo:'Open the Budget tab and play with the calculator — then retry!'},
+ hi:{title:'बचत और बजट',desc:'50-30-20, इमरजेंसी फ़ंड और कंपाउंडिंग का जादू।',insightHi:'आप तो बचत के सितारे हैं! अब डिजिटल सुरक्षा क्विज़ खेलिए।',insightLo:'बजट टैब खोलकर कैलकुलेटर चलाइए — फिर दोबारा कोशिश कीजिए!'},
+ mcq:[
+  {a:2,en:{q:'In the 50-30-20 rule, the 20 is for…',o:['Wants','Needs','Savings','Rent']},hi:{q:'50-30-20 नियम में 20 किसके लिए है?',o:['इच्छाएँ','ज़रूरतें','बचत','किराया']}},
+  {a:0,en:{q:'"Pay yourself first" means…',o:['Move savings aside BEFORE spending anything','Buy yourself a gift first','Pay your own salary in cash','Spend first, save what’s left']},hi:{q:'"पहले ख़ुद को दो" का मतलब?',o:['कुछ भी खर्चने से पहले बचत अलग रखना','पहले अपने लिए तोहफ़ा लेना','अपनी तनख़्वाह नक़द लेना','पहले खर्च, जो बचे वह बचत']}},
+  {a:1,en:{q:'An ideal emergency fund covers…',o:['1 week of expenses','3–6 months of expenses','10 years of expenses','One festival']},hi:{q:'अच्छा इमरजेंसी फ़ंड कितने खर्च जितना हो?',o:['1 हफ़्ते का','3–6 महीने का','10 साल का','एक त्योहार का']}},
+  {a:2,en:{q:'₹100 saved monthly at 8% becomes roughly how much in 10 years?',o:['₹12,000','₹13,500','₹18,300','₹50,000']},hi:{q:'₹100 महीना, 8% ब्याज पर, 10 साल में लगभग कितना?',o:['₹12,000','₹13,500','₹18,300','₹50,000']}},
+  {a:1,en:{q:'The envelope method works best for…',o:['Online shopping','Cash-income households','Big companies','Banks']},hi:{q:'लिफ़ाफ़ा तरीका सबसे अच्छा किनके लिए है?',o:['ऑनलाइन शॉपिंग','नक़द कमाई वाले घर','बड़ी कंपनियाँ','बैंक']}}],
+ flash:[
+  {en:{f:'BUDGET',b:'A plan that gives every rupee a job before the month begins.'},hi:{f:'बजट',b:'वह योजना जो महीना शुरू होने से पहले हर रुपये को काम दे देती है।'}},
+  {en:{f:'EMERGENCY FUND',b:'Untouchable savings for true emergencies — hospital, job loss, urgent repair.'},hi:{f:'इमरजेंसी फ़ंड',b:'सिर्फ़ सच्ची मुसीबत के लिए रखी अनछुई बचत — अस्पताल, काम छूटना, बड़ी मरम्मत।'}},
+  {en:{f:'COMPOUNDING',b:'Interest earning its own interest. Small + early + patient = surprisingly big.'},hi:{f:'कंपाउंडिंग',b:'ब्याज का ख़ुद ब्याज कमाना। छोटी रकम + जल्दी शुरुआत + सब्र = हैरान करने वाली बढ़त।'}}],
+ tot:[
+  {c:'a',en:{q:'On payday, what happens first?',a:'Savings move aside',b:'Shopping'},hi:{q:'पैसा मिलते ही सबसे पहले?',a:'बचत अलग',b:'ख़रीदारी'}},
+  {c:'b',en:{q:'Emergency fund can be used for…',a:'A new phone',b:'A hospital visit'},hi:{q:'इमरजेंसी फ़ंड किस पर खर्च हो सकता है?',a:'नया फ़ोन',b:'अस्पताल'}},
+  {c:'a',en:{q:'Better saving habit:',a:'₹200 every month',b:'₹2,400 "someday"'},hi:{q:'बेहतर आदत कौन सी?',a:'हर महीने ₹200',b:'"कभी" ₹2,400'}},
+  {c:'a',en:{q:'Compounding loves…',a:'Time',b:'Hurry'},hi:{q:'कंपाउंडिंग को क्या पसंद है?',a:'समय',b:'जल्दबाज़ी'}}]},
+{id:'digital',session:4,icon:'shield',col:'var(--coral)',soft:'var(--coral-soft)',
+ en:{title:'Digital Safety',desc:'OTPs, fake links and scam calls — can you outsmart a scammer?',insightHi:'Scammers should fear YOU. Share these rules with your family tonight!',insightLo:'Read "How to spot digital scams" in Learn — it could save real money.'},
+ hi:{title:'डिजिटल सुरक्षा',desc:'OTP, नक़ली लिंक और ठगी के कॉल — क्या आप ठग से ज़्यादा चालाक हैं?',insightHi:'ठगों को आपसे डरना चाहिए! आज रात ये नियम परिवार को भी सिखाइए।',insightLo:'"सीखें" में "डिजिटल ठगी पहचानिए" पढ़िए — यह असली पैसा बचा सकता है।'},
+ mcq:[
+  {a:3,en:{q:'Your bank "officer" calls asking for the OTP. You…',o:['Tell him — he’s from the bank','Tell him if he knows your name','Ask him to call later','Never share — banks NEVER ask for OTP']},hi:{q:'"बैंक अधिकारी" फ़ोन पर OTP माँगता है। आप…',o:['बता देंगे — बैंक से ही तो है','नाम जानता है तो बता देंगे','बाद में कॉल करने बोलेंगे','कभी नहीं — बैंक OTP नहीं माँगता']}},
+  {a:0,en:{q:'SMS says "Your KYC expired! Click this link now!" This is…',o:['Almost certainly a scam','A helpful reminder','From the RBI','Urgent — click fast']},hi:{q:'SMS आया: "KYC ख़त्म! तुरंत लिंक दबाएँ!" यह…',o:['लगभग पक्की ठगी है','मददगार याद-दिलावा है','RBI का संदेश है','सच में जल्दी करनी चाहिए']}},
+  {a:1,en:{q:'To RECEIVE money on UPI, you need to enter your PIN.',o:['True','False — PIN is only for SENDING','Only above ₹500','Only at night']},hi:{q:'UPI पर पैसा पाने के लिए PIN डालना पड़ता है।',o:['सही','ग़लत — PIN सिर्फ़ भेजने के लिए','सिर्फ़ ₹500 से ऊपर','सिर्फ़ रात में']}},
+  {a:2,en:{q:'"You won a ₹25 lakh lottery you never entered!" What do you do?',o:['Pay the small "processing fee"','Share Aadhaar to claim','Delete and block — it’s a scam','Forward to friends']},hi:{q:'"आपने ₹25 लाख की लॉटरी जीती!" — जो आपने कभी खेली ही नहीं। क्या करेंगे?',o:['छोटी "प्रोसेसिंग फ़ीस" भर देंगे','आधार भेजकर इनाम लेंगे','डिलीट और ब्लॉक — यह ठगी है','दोस्तों को भेजेंगे']}},
+  {a:0,en:{q:'Money got scammed! Which number do you call immediately?',o:['1930 — national cyber fraud helpline','100','The scammer back','None — it’s gone forever']},hi:{q:'ठगी हो गई! तुरंत किस नंबर पर कॉल करेंगे?',o:['1930 — राष्ट्रीय साइबर फ़्रॉड हेल्पलाइन','100','ठग को वापस','किसी को नहीं — पैसा गया']}}],
+ flash:[
+  {en:{f:'OTP',b:'One-Time Password — a secret like your toothbrush. Banks NEVER ask for it. Sharers get scammed.'},hi:{f:'OTP',b:'वन-टाइम पासवर्ड — टूथब्रश जैसा निजी। बैंक कभी नहीं माँगता। जो बताता है, वही ठगा जाता है।'}},
+  {en:{f:'PHISHING',b:'Fake messages/links pretending to be your bank or a prize — designed to steal your details.'},hi:{f:'फ़िशिंग',b:'बैंक या इनाम बनकर आए नक़ली मैसेज/लिंक — मक़सद आपकी जानकारी चुराना।'}},
+  {en:{f:'1930',b:'India’s cyber-fraud helpline. Call within the first hour and the money can often be frozen mid-way.'},hi:{f:'1930',b:'भारत की साइबर-फ़्रॉड हेल्पलाइन। पहले घंटे में कॉल करें तो पैसा अक्सर रास्ते में ही रोका जा सकता है।'}}],
+ tot:[
+  {c:'b',en:{q:'SMS link says "claim your refund"',a:'Tap it',b:'Scam — don’t tap'},hi:{q:'SMS लिंक: "रिफ़ंड पाइए"',a:'दबाएँगे',b:'ठगी — नहीं दबाएँगे'}},
+  {c:'a',en:{q:'Paying via QR at a known shop',a:'Safe',b:'Scam'},hi:{q:'जानी-पहचानी दुकान पर QR से पेमेंट',a:'सुरक्षित',b:'ठगी'}},
+  {c:'b',en:{q:'"Video call से digital arrest" by police',a:'Real',b:'Always fake'},hi:{q:'पुलिस का "वीडियो कॉल से डिजिटल अरेस्ट"',a:'असली',b:'हमेशा नक़ली'}},
+  {c:'b',en:{q:'Same PIN for everything',a:'Convenient & fine',b:'Risky habit'},hi:{q:'हर जगह एक ही PIN',a:'आसान और ठीक',b:'ख़तरनाक आदत'}}]}
+];
+/* leaderboard seeds */
+const SEED_LB=[{n:'Meena',a:2,p:148},{n:'Rajan',a:7,p:131},{n:'Arjun',a:3,p:117},{n:'Priya',a:0,p:104},{n:'Sita',a:6,p:92},{n:'Kabir',a:4,p:78},{n:'Anu',a:1,p:63},{n:'Vikram',a:5,p:49}];
+/* ───────── render: header / nav / routing ───────── */
+const PAGES=['home','schemes','learn','budget','quiz'];
+const NAVIC={home:DD.star('var(--yellow)'),schemes:DD.bag(),learn:DD.book(),budget:DD.jar(),quiz:DD.bulb()};
+let curPage='home';
+function avatarSVG(i){return AVATARS[(i||0)%AVATARS.length].svg;}
+function renderHeader(){
+  $('#logoCoin').innerHTML=DD.coin();
+  $('#userChip').innerHTML=avatarSVG(S.avatar)+'<span>'+(S.name||'…')+'</span>';
+  $('#langEn').classList.toggle('on',S.lang==='en');
+  $('#langHi').classList.toggle('on',S.lang==='hi');
+}
+function renderNav(){
+  $('#bnav').innerHTML=PAGES.map(p=>`<button data-p="${p}" class="${p===curPage?'on':''}">${NAVIC[p]}<span>${L('nav'+p[0].toUpperCase()+p.slice(1))}</span></button>`).join('');
+  $$('#bnav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.p)));
+}
+function go(p){
+  curPage=p;
+  $$('.page').forEach(el=>el.classList.remove('on'));
+  $('#page-'+p).classList.add('on');
+  renderNav();renderPage(p);
+  scrollTo({top:0});
+}
+function renderPage(p){
+  if(p==='home')renderHome();
+  else if(p==='schemes')renderSchemes();
+  else if(p==='learn')renderLearn();
+  else if(p==='budget')renderBudget();
+  else if(p==='quiz')renderQuiz();
+}
+function renderAll(){renderHeader();renderNav();renderPage(curPage);}
+
+/* ───────── HOME ───────── */
+function featuredQuiz(){return QUIZZES[FORTNIGHT%QUIZZES.length];}
+function featuredScheme(){return SCHEMES[FORTNIGHT%SCHEMES.length];}
+function lbList(){
+  const list=[...SEED_LB.map(e=>({name:e.n,av:e.a,pts:e.p,me:false})),{name:S.name||'You',av:S.avatar,pts:S.points,me:true}];
+  return list.sort((a,b)=>b.pts-a.pts);
+}
+function renderHome(){
+  const h=new Date().getHours();
+  const greet=h<12?L('greetMorning'):h<17?L('greetDay'):L('greetEvening');
+  const st=streakCount();
+  const stMsg=st>=5?L('streakMsg5'):st>=3?L('streakMsg3'):st>=1?L('streakMsg1'):L('streakMsg0');
+  const days=[];const d=new Date();d.setDate(d.getDate()-6);
+  const wd=S.lang==='hi'?['र','सो','मं','बु','गु','शु','श']:['S','M','T','W','T','F','S'];
+  for(let i=0;i<7;i++){
+    const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    days.push({lbl:wd[d.getDay()],hit:S.visits.includes(k),today:i===6});
+    d.setDate(d.getDate()+1);
+  }
+  const fq=featuredQuiz(),fs=featuredScheme();
+  const fqDone=S.quizzes[fq.id]&&S.quizzes[fq.id].done;
+  const lb=lbList().slice(0,6);
+  const feed=[
+    {ic:DD.bulb(),t:P({en:fq.en.title,hi:fq.hi.title}),s:L('feedQuiz'),go:()=>openQuiz(fq.id),isNew:true},
+    {ic:DD[fs.icon](fs.col),t:P({en:fs.en.name,hi:fs.hi.name}),s:L('feedScheme'),go:()=>openScheme(fs.id),isNew:true},
+    {ic:DD[ARTICLES[5].icon](ARTICLES[5].col),t:P({en:ARTICLES[5].en.title,hi:ARTICLES[5].hi.title}),s:L('feedArticle'),go:()=>openArticle('scams'),isNew:false},
+    {ic:DD.star(STORIES[0].col),t:P({en:STORIES[0].en.title,hi:STORIES[0].hi.title}),s:L('feedStory'),go:()=>openStory('sita'),isNew:false},
+    {ic:DD.jar(),t:P({en:'The 50-30-20 Calculator',hi:'50-30-20 कैलकुलेटर'}),s:L('feedTool'),go:()=>go('budget'),isNew:false},
+    {ic:DD[ARTICLES[2].icon](ARTICLES[2].col),t:P({en:ARTICLES[2].en.title,hi:ARTICLES[2].hi.title}),s:L('feedArticle'),go:()=>openArticle('compound'),isNew:false},
+  ];
+  $('#page-home').innerHTML=`
+   <div class="hello">${avatarSVG(S.avatar)}<div><h1>${greet}, ${S.name||''}!</h1><p>${L('hi2')}</p></div></div>
+   <div class="card" style="margin-bottom:14px">
+     <b class="head">${L('streak')} — ${st} ${st===1?L('streakDay'):L('streakDays')} 🔥</b>
+     <div class="streak-dots">${days.map(x=>`<div class="sdot ${x.hit?'hit':''} ${x.today?'today':''}">${x.lbl}</div>`).join('')}</div>
+     <div style="font-size:0.82rem;color:var(--ink-soft)">${stMsg}</div>
+   </div>
+   <div class="sec-h">${DD.star('var(--coral)')}${L('fortnight')}</div>
+   <div class="grid g2">
+     <div class="feature-card" style="background:var(--yellow-soft)">
+       <div class="doodle-bg">${DD.bulb()}</div>
+       <span class="badge new">✦ ${L('new')}</span>
+       <h3 style="font-size:1.25rem;margin:10px 0 4px">${L('quizChallenge')}: ${P({en:fq.en.title,hi:fq.hi.title})}</h3>
+       <p style="font-size:0.86rem;color:var(--ink-soft);margin-bottom:14px">${P({en:fq.en.desc,hi:fq.hi.desc})}</p>
+       <button class="btn y" data-act="fq">${fqDone?L('replay'):L('playNow')} →</button>
+     </div>
+     <div class="feature-card" style="background:var(--green-soft)">
+       <div class="doodle-bg">${DD[fs.icon](fs.col)}</div>
+       <span class="badge green">✦ ${L('schemeOfFn')}</span>
+       <h3 style="font-size:1.25rem;margin:10px 0 4px">${P({en:fs.en.name,hi:fs.hi.name})}</h3>
+       <p style="font-size:0.86rem;color:var(--ink-soft);margin-bottom:14px">${P({en:fs.en.tag,hi:fs.hi.tag})}</p>
+       <button class="btn g" data-act="fs">${L('seeScheme')} →</button>
+     </div>
+   </div>
+   <div class="sec-h">${DD.coin()}${L('leaderboard')}</div>
+   <div class="card">
+     ${lb.map((e,i)=>`<div class="lb-row ${e.me?'me':''}"><span class="rank">${i+1}</span>${avatarSVG(e.av)}<span class="nm">${e.name}${e.me?' · '+L('you'):''}</span><span class="pts">${e.pts} ${L('pts')}</span></div>`).join('')}
+   </div>
+   <div class="sec-h">${DD.arrow()}${L('fresh')}</div>
+   <div class="card" id="feedCard">
+     ${feed.map((f,i)=>`<button class="feed-item tap" data-feed="${i}" style="border:none;background:none;width:100%">${f.ic}<span style="flex:1"><span class="ft">${f.t}</span><br><span class="fs">${f.s}</span></span>${f.isNew?'<span class="badge new">'+L('new')+'</span>':'→'}</button>`).join('')}
+   </div>
+   <div class="foot-note">${L('footNote')}</div>`;
+  $('[data-act="fq"]').addEventListener('click',()=>openQuiz(fq.id));
+  $('[data-act="fs"]').addEventListener('click',()=>openScheme(fs.id));
+  $$('#feedCard [data-feed]').forEach(b=>b.addEventListener('click',()=>feed[+b.dataset.feed].go()));
+}
+
+/* ───────── SCHEMES ───────── */
+let schemeFilter='all';
+function renderSchemes(){
+  const cats=['all','health','banking','insurance','education','pension'];
+  const list=SCHEMES.filter(s=>schemeFilter==='all'||s.cat===schemeFilter);
+  $('#page-schemes').innerHTML=`
+   <div class="page-title">${DD.bag()}${L('schemesTitle')}</div>
+   <p class="page-sub">${L('schemesSub')}</p>
+   <div class="chip-row">${cats.map(c=>`<button class="fchip ${schemeFilter===c?'on':''}" data-c="${c}">${L(c)}</button>`).join('')}</div>
+   <div class="grid g2">
+    ${list.map(s=>`<button class="card tap sch-card" data-s="${s.id}">
+      <span class="sch-ic" style="background:${s.soft}">${DD[s.icon](s.col)}</span>
+      <span style="flex:1">
+        <span class="sch-t">${P({en:s.en.name,hi:s.hi.name})}</span>
+        <span class="sch-d">${P({en:s.en.tag,hi:s.hi.tag})}</span>
+        <span class="sch-meta"><span class="badge soft">${L(s.cat)}</span>${featuredScheme().id===s.id?'<span class="badge new">'+L('new')+'</span>':''}</span>
+      </span></button>`).join('')}
+   </div>`;
+  $$('#page-schemes .fchip').forEach(b=>b.addEventListener('click',()=>{schemeFilter=b.dataset.c;renderSchemes();}));
+  $$('#page-schemes [data-s]').forEach(b=>b.addEventListener('click',()=>openScheme(b.dataset.s)));
+}
+function openScheme(id){
+  const s=SCHEMES.find(x=>x.id===id);const D=P({en:s.en,hi:s.hi});
+  openOvl(D.name,`
+   <div style="display:flex;gap:14px;align-items:center;margin-bottom:6px"><span class="sch-ic" style="background:${s.soft}">${DD[s.icon](s.col)}</span><div><h2 style="margin:0">${D.name}</h2><span class="badge soft">${L(s.cat)}</span></div></div>
+   <p style="font-weight:600;color:var(--ink)">${D.tag}</p>
+   <h3>${DD.star(s.col)} ${L('who')}</h3><p>${D.who}</p>
+   <h3>${DD.coin()} ${L('youGet')}</h3><ul>${D.get.map(g=>`<li>${g}</li>`).join('')}</ul>
+   <h3>${DD.arrow()} ${L('howApply')}</h3><ol class="step-list">${D.steps.map(st=>`<li>${st}</li>`).join('')}</ol>
+   <h3>${DD.book()} ${L('docs')}</h3><div class="doc-pills">${D.docs.map(d=>`<span>${d}</span>`).join('')}</div>
+   <div style="margin-top:26px"><a class="btn g" href="${s.link}" target="_blank" rel="noopener">${L('official')} ↗</a></div>
+   <p style="font-size:0.8rem;color:var(--ink-soft);margin-top:12px">⚠ ${L('officialNote')}</p>`);
+}
+
+/* ───────── LEARN ───────── */
+function renderLearn(){
+  $('#page-learn').innerHTML=`
+   <div class="page-title">${DD.book()}${L('learnTitle')}</div>
+   <p class="page-sub">${L('learnSub')}</p>
+   <div class="grid g2">
+    ${ARTICLES.map(a=>`<button class="card tap sch-card" data-a="${a.id}">
+      <span class="sch-ic" style="background:${a.soft}">${DD[a.icon](a.col)}</span>
+      <span style="flex:1"><span class="sch-t">${P({en:a.en.title,hi:a.hi.title})}</span>
+      <span class="sch-d">${P({en:a.en.sum,hi:a.hi.sum})}</span>
+      <span class="sch-meta"><span class="badge soft">⏱ ${a.mins} ${L('minRead')}</span></span></span></button>`).join('')}
+   </div>`;
+  $$('#page-learn [data-a]').forEach(b=>b.addEventListener('click',()=>openArticle(b.dataset.a)));
+}
+function openArticle(id){
+  const a=ARTICLES.find(x=>x.id===id);const D=P({en:a.en,hi:a.hi});
+  openOvl(D.title,`
+   <h2>${D.title}</h2><p style="color:var(--ink-soft)">${D.sum}</p>
+   ${D.body}
+   <div class="fact-box">${DD.bulb()} <b>${L('didYouKnow')}</b><br>${D.fact}</div>
+   ${a.quiz?`<button class="btn y" id="artQuiz">${L('tryQuiz')}</button>`:''}`);
+  if(a.quiz)$('#artQuiz').addEventListener('click',()=>{closeOvl();openQuiz(a.quiz);});
+}
+function openStory(id){
+  const s=STORIES.find(x=>x.id===id);const D=P({en:s.en,hi:s.hi});
+  openOvl(D.name,`<span class="badge" style="background:${s.soft}">✦ ${D.name}</span><h2 style="margin-top:10px">${D.title}</h2>${D.body}`);
+}
+function openMethod(id){
+  const m=METHODS.find(x=>x.id===id);const D=P({en:m.en,hi:m.hi});
+  openOvl(D.title,`<h2>${D.title}</h2><p style="color:var(--ink-soft)">${D.sum}</p>${D.body}<div class="fact-box">${DD.bulb()} <b>${L('didYouKnow')}</b><br>${D.fact}</div>`);
+}
+
+/* overlay helpers */
+function openOvl(title,html){
+  $('#ovlTitle').textContent=title;
+  $('#ovlBody').innerHTML=html;
+  $('#ovl').classList.add('on');document.body.style.overflow='hidden';
+  $('#ovl').scrollTop=0;
+}
+function closeOvl(){$('#ovl').classList.remove('on');document.body.style.overflow='';}
+$('#ovlBack').addEventListener('click',closeOvl);
+/* ───────── BUDGET ───────── */
+let calc={income:15000,n:50,w:30,s:20,exp:12000,saved:10000};
+function renderBudget(){
+  $('#page-budget').innerHTML=`
+   <div class="page-title">${DD.jar()}${L('budgetTitle')}</div>
+   <p class="page-sub">${L('budgetSub')}</p>
+   <div class="card" style="margin-bottom:18px">
+     <b class="head" style="font-size:1.15rem">${DD.coin()} ${L('calcTitle')}</b>
+     <p style="font-size:0.85rem;color:var(--ink-soft);margin-top:4px">${L('calcSub')}</p>
+     <label class="calc-in"><span class="rs">₹</span><input id="cIncome" type="number" inputmode="numeric" min="0" value="${calc.income}" aria-label="${L('income')}"></label>
+     <div class="split-row"><span class="sl" style="color:var(--blue)">${L('needs')}</span><input type="range" id="rN" min="0" max="100" value="${calc.n}" style="accent-color:var(--blue)"><span class="pv" id="pN">${calc.n}%</span></div>
+     <div class="split-row"><span class="sl" style="color:var(--coral)">${L('wants')}</span><input type="range" id="rW" min="0" max="100" value="${calc.w}" style="accent-color:var(--coral)"><span class="pv" id="pW">${calc.w}%</span></div>
+     <div class="split-row"><span class="sl" style="color:var(--green)">${L('savings')}</span><input type="range" id="rS" min="0" max="100" value="${calc.s}" style="accent-color:var(--green)"><span class="pv" id="pS">${calc.s}%</span></div>
+     <div class="warn" id="cWarn"></div>
+     <div class="split-out">
+       <div class="so-box" style="background:var(--blue-soft)"><div class="sk" style="color:var(--blue)">${L('needs')}</div><div class="sa" id="oN"></div><div style="font-size:0.7rem;color:var(--ink-soft)">${L('needsEx')}</div></div>
+       <div class="so-box" style="background:var(--coral-soft)"><div class="sk" style="color:var(--coral)">${L('wants')}</div><div class="sa" id="oW"></div><div style="font-size:0.7rem;color:var(--ink-soft)">${L('wantsEx')}</div></div>
+       <div class="so-box" style="background:var(--green-soft)"><div class="sk" style="color:var(--green)">${L('savings')}</div><div class="sa" id="oS"></div><div style="font-size:0.7rem;color:var(--ink-soft)">${L('savingsEx')}</div></div>
+     </div>
+     <div style="margin-top:14px"><button class="btn w sm" id="cReset">↺ ${L('reset5030')}</button></div>
+   </div>
+   <div class="card" style="margin-bottom:18px">
+     <b class="head" style="font-size:1.15rem">${DD.shield()} ${L('efTitle')}</b>
+     <p style="font-size:0.85rem;color:var(--ink-soft);margin-top:4px">${L('efSub')}</p>
+     <div class="grid g2" style="margin-top:10px">
+       <label><span style="font-size:0.8rem;font-weight:700">${L('efExp')}</span><span class="calc-in" style="margin:6px 0"><span class="rs">₹</span><input id="eExp" type="number" inputmode="numeric" min="0" value="${calc.exp}"></span></label>
+       <label><span style="font-size:0.8rem;font-weight:700">${L('efSaved')}</span><span class="calc-in" style="margin:6px 0"><span class="rs">₹</span><input id="eSaved" type="number" inputmode="numeric" min="0" value="${calc.saved}"></span></label>
+     </div>
+     <div class="pgw"><div class="pgf" id="efBar"></div></div>
+     <div style="display:flex;justify-content:space-between;align-items:baseline"><b class="head" id="efMonths" style="font-size:1.3rem;color:var(--green)"></b><span style="font-size:0.72rem;color:var(--ink-soft)">0 ─ 6+</span></div>
+     <p id="efVerdict" style="font-size:0.86rem;margin-top:6px"></p>
+   </div>
+   <div class="sec-h">${DD.bulb()}${L('methods')}</div>
+   <div class="grid g2">
+    ${METHODS.map(m=>`<button class="card tap sch-card" data-m="${m.id}">
+      <span class="sch-ic" style="background:${m.soft}">${DD[m.icon](m.col)}</span>
+      <span style="flex:1"><span class="sch-t">${P({en:m.en.title,hi:m.hi.title})}</span>
+      <span class="sch-d">${P({en:m.en.sum,hi:m.hi.sum})}</span></span></button>`).join('')}
+   </div>
+   <div class="sec-h">${DD.heart()}${L('stories')}</div>
+   <div class="grid g2">
+    ${STORIES.map(st=>`<button class="card tap" data-st="${st.id}" style="background:${st.soft}">
+      <span class="badge soft">✦ ${P({en:st.en.name,hi:st.hi.name})}</span>
+      <div class="sch-t" style="margin-top:8px">${P({en:st.en.title,hi:st.hi.title})}</div></button>`).join('')}
+   </div>`;
+  const upd=()=>{
+    calc.income=+$('#cIncome').value||0;
+    calc.n=+$('#rN').value;calc.w=+$('#rW').value;calc.s=+$('#rS').value;
+    $('#pN').textContent=calc.n+'%';$('#pW').textContent=calc.w+'%';$('#pS').textContent=calc.s+'%';
+    const sum=calc.n+calc.w+calc.s,warn=$('#cWarn');
+    if(sum!==100){warn.style.display='block';warn.textContent=L('splitWarn').replace('{x}',sum);}else warn.style.display='none';
+    $('#oN').textContent=inr(calc.income*calc.n/100)+L('perMonth');
+    $('#oW').textContent=inr(calc.income*calc.w/100)+L('perMonth');
+    $('#oS').textContent=inr(calc.income*calc.s/100)+L('perMonth');
+  };
+  const updEF=()=>{
+    calc.exp=+$('#eExp').value||0;calc.saved=+$('#eSaved').value||0;
+    const m=calc.exp>0?calc.saved/calc.exp:0;
+    $('#efBar').style.width=Math.min(100,m/6*100)+'%';
+    $('#efBar').style.background=m>=3?'var(--green)':m>=1?'var(--yellow)':'var(--coral)';
+    $('#efMonths').textContent=(Math.round(m*10)/10)+' '+L('efMonths');
+    $('#efVerdict').textContent=m>=6?L('ef6'):m>=3?L('ef3'):m>=1?L('ef1'):L('ef0');
+  };
+  ['cIncome','rN','rW','rS'].forEach(id=>$('#'+id).addEventListener('input',upd));
+  ['eExp','eSaved'].forEach(id=>$('#'+id).addEventListener('input',updEF));
+  $('#cReset').addEventListener('click',()=>{$('#rN').value=50;$('#rW').value=30;$('#rS').value=20;upd();});
+  $$('#page-budget [data-m]').forEach(b=>b.addEventListener('click',()=>openMethod(b.dataset.m)));
+  $$('#page-budget [data-st]').forEach(b=>b.addEventListener('click',()=>openStory(b.dataset.st)));
+  upd();updEF();
+}
+
+/* ───────── QUIZ LIST + ENGINE ───────── */
+function renderQuiz(){
+  const fq=featuredQuiz();
+  $('#page-quiz').innerHTML=`
+   <div class="page-title">${DD.bulb()}${L('quizTitle')}</div>
+   <p class="page-sub">${L('quizSub')}</p>
+   <div class="grid g2">
+    ${QUIZZES.map(q=>{
+      const st=S.quizzes[q.id];const D=P({en:q.en,hi:q.hi});
+      return `<button class="card tap sch-card" data-q="${q.id}">
+        <span class="sch-ic" style="background:${q.soft}">${DD[q.icon](q.col)}</span>
+        <span style="flex:1"><span class="sch-t">${D.title}</span>
+        <span class="sch-d">${D.desc}</span>
+        <span class="sch-meta">
+          ${q.id===fq.id?'<span class="badge new">✦ '+L('new')+'</span>':''}
+          ${st&&st.done?`<span class="badge green">✓ ${L('done')} · ${L('best')} ${st.best}%</span>`:`<span class="badge yellow">${L('start')} →</span>`}
+        </span></span></button>`;}).join('')}
+   </div>
+   <p class="foot-note">${L('locked')}</p>`;
+  $$('#page-quiz [data-q]').forEach(b=>b.addEventListener('click',()=>openQuiz(b.dataset.q)));
+}
+let QZ=null;
+function openQuiz(id){
+  const q=QUIZZES.find(x=>x.id===id);
+  const replay=!!(S.quizzes[id]&&S.quizzes[id].done);
+  QZ={q,stage:'mcq',i:0,earned:0,max:q.mcq.length*10+q.flash.length*5+q.tot.length*5,correct:0,total:0,replay};
+  openOvl(P({en:q.en,hi:q.hi}).title,'');
+  qRender();
+}
+function qPips(){
+  const total=QZ.q.mcq.length+QZ.q.flash.length+QZ.q.tot.length;
+  const idx=QZ.stage==='mcq'?QZ.i:QZ.stage==='flash'?QZ.q.mcq.length+QZ.i:QZ.q.mcq.length+QZ.q.flash.length+QZ.i;
+  return `<div class="q-progress">${Array.from({length:total},(_,k)=>`<div class="q-pip ${k<idx?'done':k===idx?'now':''}"></div>`).join('')}</div>`;
+}
+function qRender(){
+  const q=QZ.q,body=$('#ovlBody');
+  if(QZ.stage==='mcq'){
+    if(QZ.i>=q.mcq.length){QZ.stage='flash';QZ.i=0;return qRender();}
+    const m=q.mcq[QZ.i],D=P({en:m.en,hi:m.hi});
+    body.innerHTML=`${qPips()}
+      <div class="badge soft" style="margin-bottom:10px">${L('qOf').replace('{a}',QZ.i+1).replace('{b}',q.mcq.length)}</div>
+      <h2 style="font-size:1.25rem">${D.q}</h2><div style="height:14px"></div>
+      ${D.o.map((o,i)=>`<button class="q-opt" data-i="${i}">${o}</button>`).join('')}
+      <div class="q-fb" id="qfb"></div>
+      <button class="btn g" id="qNext" style="display:none">${L('next')}</button>`;
+    let done=false;
+    $$('#ovlBody .q-opt').forEach(b=>b.addEventListener('click',()=>{
+      if(done)return;done=true;QZ.total++;
+      const i=+b.dataset.i,ok=i===m.a;
+      $$('#ovlBody .q-opt').forEach((x,xi)=>{x.disabled=true;if(xi===m.a)x.classList.add('right');else if(xi===i)x.classList.add('wrongpick');});
+      const fb=$('#qfb');
+      if(ok){QZ.correct++;if(!QZ.replay)QZ.earned+=10;fb.className='q-fb ok';fb.innerHTML='✓ '+L('correct')+(QZ.replay?'':' <b>+10</b>');}
+      else{fb.className='q-fb no';fb.innerHTML='✗ '+L('oops')+' <b>'+D.o[m.a]+'</b>';b.classList.add('shake');}
+      $('#qNext').style.display='inline-flex';
+    }));
+    $('#qNext').addEventListener('click',()=>{QZ.i++;qRender();});
+  }
+  else if(QZ.stage==='flash'){
+    if(QZ.i>=q.flash.length){QZ.stage='tot';QZ.i=0;return qRender();}
+    const f=q.flash[QZ.i],D=P({en:f.en,hi:f.hi});
+    body.innerHTML=`${qPips()}
+      <div class="badge soft" style="margin-bottom:10px">${L('flashOf').replace('{a}',QZ.i+1).replace('{b}',q.flash.length)}</div>
+      <div class="flip-card" id="fc"><div class="flip-in">
+        <div class="flip-f"><span class="fq">${D.f}</span><span class="flip-hint">${L('tapFlip')} ↻</span></div>
+        <div class="flip-b"><p style="margin:0;font-weight:600">${D.b}</p></div>
+      </div></div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn g sm" id="fKnew" disabled>${L('knew')}${QZ.replay?'':' +5'}</button>
+        <button class="btn w sm" id="fLearn" disabled>${L('learning')}</button>
+      </div>`;
+    $('#fc').addEventListener('click',()=>{$('#fc').classList.add('flipped');$('#fKnew').disabled=false;$('#fLearn').disabled=false;});
+    $('#fKnew').addEventListener('click',()=>{if(!QZ.replay)QZ.earned+=5;QZ.i++;qRender();});
+    $('#fLearn').addEventListener('click',()=>{QZ.i++;qRender();});
+  }
+  else if(QZ.stage==='tot'){
+    if(QZ.i>=q.tot.length)return qScore();
+    const t=q.tot[QZ.i],D=P({en:t.en,hi:t.hi});
+    body.innerHTML=`${qPips()}
+      <div class="badge soft" style="margin-bottom:10px">⚡ ${L('totOf').replace('{a}',QZ.i+1).replace('{b}',q.tot.length)}</div>
+      <h2 style="font-size:1.3rem;text-align:center;margin-top:14px">${D.q}</h2>
+      <div class="tot-row"><button class="q-opt" data-t="a">${D.a}</button><button class="q-opt" data-t="b">${D.b}</button></div>
+      <div class="q-fb" id="qfb" style="margin-top:14px"></div>`;
+    let done=false;
+    $$('#ovlBody [data-t]').forEach(b=>b.addEventListener('click',()=>{
+      if(done)return;done=true;QZ.total++;
+      const ok=b.dataset.t===t.c;
+      $$('#ovlBody [data-t]').forEach(x=>{x.disabled=true;if(x.dataset.t===t.c)x.classList.add('right');else if(x===b)x.classList.add('wrongpick');});
+      const fb=$('#qfb');
+      if(ok){QZ.correct++;if(!QZ.replay)QZ.earned+=5;fb.className='q-fb ok';fb.innerHTML='✓ '+L('correct')+(QZ.replay?'':' <b>+5</b>');}
+      else{fb.className='q-fb no';fb.innerHTML='✗ '+L('oops');}
+      setTimeout(()=>{QZ.i++;qRender();},900);
+    }));
+  }
+}
+function qScore(){
+  const q=QZ.q,D=P({en:q.en,hi:q.hi});
+  const answerable=q.mcq.length+q.tot.length;
+  const pct=Math.round(QZ.correct/answerable*100);
+  if(!QZ.replay){
+    S.points+=QZ.earned;
+    S.quizzes[q.id]={done:true,best:pct};
+    save();
+  }else if(pct>(S.quizzes[q.id].best||0)){S.quizzes[q.id].best=pct;save();}
+  const rank=lbList().findIndex(e=>e.me)+1;
+  if(pct>=70)confetti();
+  $('#ovlBody').innerHTML=`
+    <div style="text-align:center;padding-top:10px">
+      <div class="score-big">${pct}%</div>
+      <div class="badge yellow" style="margin:10px 0">${QZ.replay?L('replayNote'):'+'+QZ.earned+' '+L('earned')}</div>
+      <h2 style="margin:8px 0 4px">${L('scorecard')}</h2>
+      <p style="color:var(--ink-soft);font-size:0.9rem">${L('rank')}: <b style="color:var(--green)">#${rank}</b> · ${L('totalPts')}: <b>${S.points}</b></p>
+      <div class="fact-box" style="text-align:left">${DD.bulb()} ${pct>=60?D.insightHi:D.insightLo}</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+        <button class="btn g" id="qAgain">${L('replay')}</button>
+        <button class="btn w" id="qHome">${L('back')}</button>
+      </div>
+    </div>`;
+  renderHeader();
+  $('#qAgain').addEventListener('click',()=>openQuiz(q.id));
+  $('#qHome').addEventListener('click',()=>{closeOvl();renderPage(curPage);});
+}
+function confetti(){
+  const cols=['#1d9e75','#f6b93b','#e85d4a','#3b6fb6','#2c2218'];
+  for(let i=0;i<40;i++){const c=document.createElement('span');c.className='cf';
+    c.style.left=Math.random()*100+'vw';c.style.background=cols[i%cols.length];
+    c.style.animationDelay=(Math.random()*0.6)+'s';c.style.animationDuration=(2+Math.random()*1.3)+'s';
+    $('#cfx').appendChild(c);setTimeout(()=>c.remove(),4000);}
+}
+
+/* ───────── onboarding + profile ───────── */
+function openModal(html){$('#modalBox').innerHTML=html;$('#modalBg').classList.add('on');}
+function closeModal(){$('#modalBg').classList.remove('on');}
+function onboard(step){
+  if(step===1){
+    openModal(`<h2>${T.en.onbWelcome} 🪙</h2><p class="ms">${T.en.onbSub}</p>
+      <b class="head" style="display:block;margin-bottom:10px">${T.en.onbLang} / ${T.hi.onbLang}</b>
+      <div class="lang-big"><button data-l="en">English</button><button data-l="hi">हिन्दी</button></div>`);
+    $$('#modalBox [data-l]').forEach(b=>b.addEventListener('click',()=>{S.lang=b.dataset.l;save();onboard(2);}));
+  }else{
+    openModal(`<h2>${L('onbName')}</h2>
+      <input class="name-in" id="obName" maxlength="16" placeholder="${L('onbNamePh')}">
+      <b class="head" style="display:block;margin-bottom:10px">${L('onbAvatar')}</b>
+      <div class="av-grid">${AVATARS.map((a,i)=>`<button class="av-cell ${i===0?'on':''}" data-av="${i}">${a.svg}<span>${P(a.n)}</span></button>`).join('')}</div>
+      <button class="btn g" id="obGo" style="width:100%">${L('startBtn')}</button>`);
+    let av=0;
+    $$('#modalBox [data-av]').forEach(b=>b.addEventListener('click',()=>{av=+b.dataset.av;$$('#modalBox .av-cell').forEach(x=>x.classList.remove('on'));b.classList.add('on');}));
+    $('#obGo').addEventListener('click',()=>{
+      const n=$('#obName').value.trim();
+      if(!n){$('#obName').classList.add('shake');setTimeout(()=>$('#obName').classList.remove('shake'),450);$('#obName').focus();return;}
+      S.name=n;S.avatar=av;save();closeModal();renderAll();confetti();
+    });
+    setTimeout(()=>$('#obName').focus(),150);
+  }
+}
+function openProfile(){
+  const done=Object.values(S.quizzes).filter(x=>x.done).length;
+  openModal(`<h2>${L('profile')}</h2>
+    <p class="ms">${L('totalPts')}: <b style="color:var(--green)">${S.points}</b> · ${L('quizzesDone')}: <b>${done}/${QUIZZES.length}</b> · 🔥 ${streakCount()} ${L('streakDays')}</p>
+    <input class="name-in" id="pfName" maxlength="16" value="${S.name}">
+    <div class="av-grid">${AVATARS.map((a,i)=>`<button class="av-cell ${i===S.avatar?'on':''}" data-av="${i}">${a.svg}<span>${P(a.n)}</span></button>`).join('')}</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn g" id="pfSave">${L('saveBtn')}</button>
+      <button class="btn w" id="pfClose">${L('close')}</button>
+      <button class="btn c sm" id="pfReset" style="margin-left:auto">${L('resetAll')}</button>
+    </div>`);
+  let av=S.avatar;
+  $$('#modalBox [data-av]').forEach(b=>b.addEventListener('click',()=>{av=+b.dataset.av;$$('#modalBox .av-cell').forEach(x=>x.classList.remove('on'));b.classList.add('on');}));
+  $('#pfSave').addEventListener('click',()=>{const n=$('#pfName').value.trim();if(n)S.name=n;S.avatar=av;save();closeModal();renderAll();});
+  $('#pfClose').addEventListener('click',closeModal);
+  $('#pfReset').addEventListener('click',()=>{if(confirm(L('resetConfirm'))){localStorage.removeItem(LSKEY);location.reload();}});
+}
+$('#modalBg').addEventListener('click',e=>{if(e.target===$('#modalBg')&&S.name)closeModal();});
+
+/* ───────── init ───────── */
+load();
+$('#langEn').addEventListener('click',()=>{S.lang='en';save();renderAll();});
+$('#langHi').addEventListener('click',()=>{S.lang='hi';save();renderAll();});
+$('#userChip').addEventListener('click',()=>{if(S.name)openProfile();});
+$('#logoHome').addEventListener('click',()=>go('home'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if($('#ovl').classList.contains('on'))closeOvl();else if($('#modalBg').classList.contains('on')&&S.name)closeModal();}});
+renderAll();
+if(!S.name)onboard(1);
+</script>
+</body>
+</html>
